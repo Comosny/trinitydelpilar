@@ -1,140 +1,668 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trinity | Mi Frecuencia 2.0</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Trinity | Mi Frecuencia 2.0 — COMOSNY</title>
+    <meta name="description" content="Trinity by COMOSNY — presencia viva, resonancia MERAKI. Estructura claridad donde otros solo crean ruido." />
+    <!-- OG tags -->
+    <meta property="og:title" content="Trinity | Mi Frecuencia 2.0 - Arquitectura Operativa" />
+    <meta property="og:description" content="Trinity by COMOSNY — Estructura humana, estrategia inquebrantable." />
+    <meta property="og:type" content="website" />
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- Google tag (gtag.js / GA4) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-82S7ZMY1B6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-82S7ZMY1B6');
-    </script>
-
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-KZXB7ML2');
-    </script>
+    <!-- Google font (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 
     <style>
-        :root {
-            --bg-start: #0f032e;
-            --bg-end: #1a032e;
-            --neon-blue: #00FFFF;
-            --neon-violet: #8A2BE2;
-            --neon-pink: #FF6EC7;
+        :root{
+            --bg1:#0f032e; --bg2:#1a032e; --glass: rgba(255,255,255,0.06);
+            --accent-a: linear-gradient(90deg, #ff6ec7, #8A2BE2, #00FFFF);
+            --btn-shadow: 0 6px 18px rgba(0,0,0,0.45);
+            --maxw:980px;
+            /* Colores de Diagnóstico */
+            --diag-bg: #111111; /* Color de fondo del modal del diagnóstico */
+            --diag-accent: #d4af37; /* Color de acento (Botones/Éxito) */
         }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at center, var(--bg-end) 0%, var(--bg-start) 100%);
-            overflow-x: hidden;
-            position: relative;
-            color: white;
+        *{box-sizing:border-box}
+        body{
+            margin:0; font-family:Inter,system-ui,Arial,sans-serif;
+            color:#fff; background: radial-gradient(circle at 20% 10%, #1a0538 0%, #070017 60%);
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-moz-osx-font-smoothing:grayscale;
+            min-height:100vh; display:flex; align-items:center; justify-content:center;
+            padding:24px 16px; /* Ajuste de padding para móvil */
         }
-        .neon-text { text-shadow: 0 0 5px var(--neon-blue), 0 0 15px var(--neon-violet), 0 0 25px var(--neon-pink); }
-        .floating-text { animation: float 3s ease-in-out infinite alternate; }
-        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-12px); } }
-        .image-glow { animation: image-glow 2s ease-in-out infinite alternate; }
-        @keyframes image-glow { 0% { filter: drop-shadow(0 0 10px var(--neon-blue)) drop-shadow(0 0 20px var(--neon-violet)); } 50% { filter: drop-shadow(0 0 30px var(--neon-pink)) drop-shadow(0 0 50px var(--neon-blue)); } 100% { filter: drop-shadow(0 0 10px var(--neon-blue)) drop-shadow(0 0 20px var(--neon-violet)); } }
-        button.interactive:hover { transform: scale(1.1); box-shadow: 0 0 25px #FF6EC7, 0 0 50px #00FFFF; }
-        canvas { position: absolute; top: 0; left: 0; z-index: 0; }
+        .wrap{width:100%; max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
+        header{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px}
+        .brand{display:flex; gap:12px; align-items:center}
+        .logo{font-weight:800; letter-spacing:0.6px; font-size:18px}
+        .comosny-btn{
+            background:linear-gradient(90deg, #8A2BE2, #00FFFF);
+            color:#000;
+            border:none; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700;
+            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+        .comosny-btn:hover{transform:translateY(-1px); box-shadow: 0 6px 15px rgba(138, 43, 226, 0.6);}
+        .top-actions{display:flex; gap:8px; align-items:center}
+        /* [EDITED] Padding reducido de 22px a 20px */
+        .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; padding:20px; box-shadow:var(--btn-shadow); display:flex; gap:18px; align-items:center}
+        .left{
+            flex:1;
+            text-align: center; 
+        }
+        .right{flex:1}
+        h1{font-size:28px; margin:0 0 6px 0; line-height:1.02; letter-spacing:-0.5px}
+        .sub{color:#cfc5ff; opacity:.85; margin-bottom:12px}
+        .btns{
+            display:flex; 
+            gap:10px; 
+            flex-wrap:wrap;
+            justify-content: center; 
+        }
+        .cta{padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; background:var(--accent-a); color:#040017; box-shadow:var(--btn-shadow); transition:transform 0.2s;}
+        .cta:hover{transform:scale(1.02);}
+        .linkbtn{background:transparent; border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:12px; cursor:pointer; color:#fff; transition:border-color 0.2s; line-height: 1;}
+        .linkbtn:hover{border-color:rgba(255,255,255,0.3);}
+        .video-wrap{background:var(--glass); padding:10px; border-radius:14px; display:flex; flex-direction:column; gap:12px; align-items:center}
+        video{width:100%; border-radius:10px; max-height:420px; object-fit:cover; display:block; background-color: #000;}
+        .audio-controls{display:flex; gap:8px; align-items:center; flex-wrap: wrap; justify-content: center;}
+        .small{font-size:13px; color:#d9d4ff; opacity:.9}
+        .socials{
+            display:flex; 
+            gap:8px; 
+            margin-top:8px;
+            justify-content: center; 
+        }
+        .socials a{padding:8px 10px; border-radius:10px; background:rgba(255,255,255,0.02); text-decoration:none; color:#fff; font-weight:600; font-size:13px}
+        footer{margin-top:24px; text-align:center; color:rgba(255,255,255,0.6); font-size:13px}
+
+        /* Testimonials/Social Proof Section */
+        .proof-section{margin-top:28px; padding:18px 22px; background:rgba(255,255,255,0.03); border-radius:16px}
+        .proof-section h3{
+            font-size:16px; 
+            font-weight:700; 
+            margin:0 0 10px 0; 
+            color:#fff; 
+            opacity:0.9;
+            text-align: center; 
+        }
+        .logo-grid{display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:center}
+        .logo-item{font-size:18px; font-weight:600; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px}
+
+        /* Panel Comosny Styling */
+        .panel-bg{display:none; position:fixed; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,6,20,0.95)); backdrop-filter:blur(6px); z-index:99; align-items:center; justify-content:center; overflow-y:auto}
+        .panel-content{width:96%; max-width:820px; margin:24px auto; background: #050014; border-radius:16px; padding:24px; color:#fff; box-shadow:0 30px 80px rgba(0,0,0,0.6); animation: fadeIn 0.3s ease-out;}
+        @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+        .package-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:16px}
+        .package-card{background:linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); padding:16px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); transition:transform 0.3s}
+        .package-card:hover{transform:scale(1.01); border-color:#8A2BE2}
+        .price{font-size:20px; font-weight:800; margin:4px 0}
+        .package-title{font-weight:700; font-size:16px; margin-bottom:4px; background:var(--accent-a); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+
+        /* Custom Message Box Styling (replacing alert) */
+        .msg-overlay{position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(3px); z-index:100; display:none; place-items:center}
+        .msg-box{background:#0d022b; border-radius:14px; padding:24px; width:90%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+        .msg-box h4{margin-top:0; color:#ff6ec7; font-size:18px}
+        .msg-box p{font-size:14px; color:#d9d4ff}
+        .msg-box button{float:right; margin-top:15px; background:#8A2BE2; color:#fff; padding:8px 16px; border:none; border-radius:8px; cursor:pointer}
+        
+        /* Diagnóstico Modal Specific Styling */
+        #diagnosticoPanel .panel-content {
+            max-width: 500px;
+            background: var(--diag-bg);
+            color: var(--diag-color, #ffffff);
+            padding: 40px;
+            border-radius: 16px;
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+        }
+
+        .diag-form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .diag-form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .diag-form-group input[type="text"],
+        .diag-form-group input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffffff;
+        }
+
+        /* Radio buttons styling */
+        .diag-radio-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .diag-radio-options label {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+            font-weight: 400;
+        }
+        .diag-radio-options label:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--diag-accent);
+        }
+        .diag-radio-options input[type="radio"] {
+            margin-right: 12px;
+            accent-color: var(--diag-accent);
+            transform: scale(1.1);
+        }
+
+        /* Button styles from JSON */
+        .diag-button {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--diag-accent);
+            color: #000000;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .diag-button:hover {
+            opacity: 0.9;
+        }
+
+        /* Thank You Screen */
+        .diag-thankyou {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .diag-thankyou h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--diag-accent);
+        }
+        .diag-thankyou p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        /* Responsive */
+        @media (max-width:840px){
+            .hero{flex-direction:column}
+            .left,.right{width:100%}
+            h1{font-size:24px}
+            .panel-content{margin:12px auto; padding:18px}
+            .top-actions { gap: 4px; }
+            .comosny-btn { font-size: 14px; padding: 6px 10px; }
+            .linkbtn { font-size: 13px; padding: 8px 10px; }
+            #diagnosticoPanel .panel-content { padding: 25px; }
+        }
+        @media (max-width: 480px) {
+            header { flex-direction: column; align-items: flex-start; }
+            .top-actions { margin-top: 8px; width: 100%; justify-content: space-between; }
+        }
     </style>
 </head>
 <body>
-
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KZXB7ML2"
-      height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-
-    <canvas id="particleCanvas"></canvas>
-
-    <div class="container flex flex-col items-center w-full max-w-sm mx-auto my-auto relative z-10">
-        <!-- Top Right Comosny button -->
-        <div class="w-full flex justify-end mb-4">
-            <button onclick="window.open('https://comosny.com','_blank')" class="interactive py-2 px-4 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500 font-bold text-white">Comosny</button>
-        </div>
-
-        <h1 class="text-3xl md:text-4xl font-extrabold mb-4 text-center mt-8 leading-snug neon-text floating-text">
-            I´m Trinity <br> <br>
-            -My Frequency-
-        </h1>
-        <h2 class="text-sm text-gray-400 mb-6 text-center floating-text">by Comosny</h2>
-
-        <div class="flex flex-col md:flex-row items-center justify-center w-full my-6 gap-4">
-            <div class="flex flex-col gap-4 w-full md:w-1/3">
-                <button onclick="window.open('https://onlyfans.com/trinitydelpilar','_blank')" class="interactive w-full py-3 px-2 border-none rounded-xl cursor-pointer font-bold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">🔥 Secret</button>
-                <button onclick="window.open('https://instagram.com/@trinitydelpilar','_blank')" class="interactive w-full py-3 px-2 border-none rounded-xl cursor-pointer font-bold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">✨ Daily</button>
+    <div class="wrap">
+        <header>
+            <div class="brand">
+                <div class="logo">TRINITY</div>
+                <div class="small">by COMOSNY</div>
             </div>
 
-            <div class="image-wrapper relative md:w-1/3">
-                <video autoplay loop muted playsinline class="w-full rounded-xl transition-transform duration-500 transform image-glow cursor-pointer">
-                    <source src="https://github.com/Comosny/trinitydelpilar/blob/main/trinity-intro.mp4?raw=true" type="video/mp4">
-                    Tu navegador no soporta videos HTML5.
-                </video>
-                <p class="text-gray-400 mt-2 text-center text-sm floating-text">Diversión sin límites…</p>
+            <div class="top-actions">
+                <!-- Top-right Comosny button -->
+                <button class="comosny-btn" id="open-comosny">Explora Comosny</button>
+                <!-- small quick links (El botón 'Código' fue eliminado) -->
+            </div>
+        </header>
+
+        <main class="hero" role="main">
+            <div class="left">
+                <!-- COPIA OPTIMIZADA B.A.S.E. -->
+                <h1>Trinity:<br><span class="sub">Claridad Radical. Conexión Viral.</span></h1>
+                
+                <!-- Párrafos condensados y optimizados para impacto viral. -->
+                <p class="small">Arquitectura MERAKI para escalar sin fricción. Ordena tu operación y activa tu resonancia.</p>
+
+                <div class="btns" style="margin-top:18px">
+                    <button class="cta" onclick="window.open('https://onlyfans.com/trinitydelpilar','_blank')">🔥 Secret (OnlyFans)</button>
+                    <!-- El Mini-Diagnóstico ahora abre un modal en la página -->
+                    <button class="linkbtn" id="open-diagnostico">📝 Mini-Diagnóstico</button>
+                    <button class="linkbtn" onclick="window.open('https://instagram.com/trinitydelpilar','_blank')">✨ Instagram</button>
+                </div>
+
+                <div class="socials" style="margin-top:12px">
+                    <a href="https://twitter.com/trinitydelpilar" target="_blank" rel="noopener">X / Twitter</a>
+                    <a href="https://tiktok.com/@trinitydelpilar" target="_blank" rel="noopener">TikTok</a>
+                    <a href="mailto:comosnythf@gmail.com">Contacto</a>
+                </div>
             </div>
 
-            <div class="flex flex-col gap-4 w-full md:w-1/3">
-                <button onclick="window.open('https://twitter.com/@trinitydelpilar','_blank')" class="interactive w-full py-3 px-2 border-none rounded-xl cursor-pointer font-bold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">⚡ Thoughts</button>
-                <button onclick="window.open('https://tiktok.com/@trinitydelpilar','_blank')" class="interactive w-full py-3 px-2 border-none rounded-xl cursor-pointer font-bold text-white transition-all duration-300 shadow-lg bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500">🎵 Clips</button>
-            </div>
-        </div>
+            <div class="right">
+                <div class="video-wrap">
+                    <!-- Placeholder de video reemplazado con URL de ejemplo y error handling -->
+                    <video id="trinityVideo" playsinline loop muted preload="auto" poster="https://placehold.co/600x400/1a032e/ffffff?text=Video+Loading">
+                        <!-- Usar una URL de ejemplo. Reemplaza con tu video real (e.g., MP4 alojado en CDN) -->
+                        <source src="https://mock-cdn.com/trinity-system-intro.mp4" type="video/mp4" onerror="document.getElementById('trinityVideo').poster='https://placehold.co/600x400/cc0000/ffffff?text=Video+Error'; showMessageBox('Error de Video', 'No se pudo cargar el video de demostración. Verifica la URL de la fuente.');">
+                        Tu navegador no soporta video HTML5.
+                    </video>
 
-        <!-- HubSpot Form -->
-        <div class="flex flex-col gap-4 bg-white/5 p-6 rounded-xl w-full text-center">
-            <h3 class="text-lg font-bold neon-text floating-text">Vibremos 👉👈 juntos</h3>
-            <div class="form-wrapper w-full max-w-md mx-auto mt-6">
-                <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
-                <script>
-                    hbspt.forms.create({
-                        portalId: "50254580",
-                        formId: "a35b24a1-9dbf-402b-9974-ffcf750105a3",
-                        region: "na1"
-                    });
-                </script>
-            </div>
-        </div>
+                    <div class="audio-controls">
+                        <button id="toggleSound" class="linkbtn">▶️ Activar sonido</button>
+                        <button id="playPause" class="linkbtn">⏯ Reproducir / Pausar</button>
+                        <div class="small" id="videoStatus">Video: pausado • audio: silenciado</div>
+                    </div>
 
-        <footer class="mt-12 text-center text-gray-400 text-sm">
-            <p>&copy; <span id="current-year"></span> Derechos Reservados @Comosny</p>
+                    <div style="width:100%; display:flex; gap:8px; justify-content:center">
+                        <button class="linkbtn" onclick="document.getElementById('trinityVideo').requestFullscreen()">🔍 Pantalla</button>
+                        <button class="linkbtn" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'})">▼ Más</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <!-- Sección de Validación Social -->
+        <section class="proof-section">
+            <h3>Arquitectura Comprobada. No es teoría, es ejecución.</h3>
+            <div class="logo-grid">
+                <span class="logo-item">Fundador Agotado</span>
+                <span class="logo-item">CEO Operativo</span>
+                <span class="logo-item">Talento Inconforme</span>
+            </div>
+        </section>
+
+        <footer>
+            © <span id="yr"></span> COMOSNY — Paz a Bordo · MERAKI Emotional Engineering
         </footer>
     </div>
 
+    <!-- Custom Message Box Modal (Reemplaza a alert()) -->
+    <div id="messageOverlay" class="msg-overlay">
+        <div class="msg-box">
+            <h4 id="messageTitle">Aviso del Sistema</h4>
+            <p id="messageText"></p>
+            <button onclick="closeMessageBox()">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- Modal-like panel for COMOSNY (backstage) -->
+    <div id="comosnyPanel" class="panel-bg">
+        <div class="panel-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:12px">
+                <div style="font-weight:800; font-size:22px; color:#00FFFF">COMOSNY — Backstage Operativo</div>
+                <div>
+                    <button class="linkbtn" onclick="closeComosny()">Cerrar</button>
+                </div>
+            </div>
+
+            <div style="margin-top:12px">
+                <p class="small" style="font-size:14px; color:#ff6ec7; font-weight:600;">"Estructuro claridad donde otros solo crean ruido." — Jhovanny Sánchez, CLOEA</p>
+                <p class="small" style="margin-bottom:18px;">Trinity es la demostración en vivo de nuestra metodología. Accede a la **Arquitectura Operativa** para escalar sin fricción y sin perder tu paz.</p>
+
+                <div class="package-grid">
+                    <!-- PAQUETE IMPULSO ACTUALIZADO -->
+                    <div class="package-card">
+                        <div class="package-title">Impulso (Paquete de entrada)</div>
+                        <div class="price">800 USD</div>
+                        <p class="small">**Paquete de entrada.** Ideal para: Negocios que quieren probar el canal digital con bajo riesgo. Incluye: 1 campaña digital, 1 landing page optimizada, setup inicial de CRM y reporte de métricas básico.</p>
+                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Impulso')">Contratar</button></div>
+                    </div>
+                    <!-- PAQUETE CRECIMIENTO ACTUALIZADO -->
+                    <div class="package-card">
+                        <div class="package-title">Crecimiento (Más elegido)</div>
+                        <div class="price">1,500 USD</div>
+                        <p class="small">**🔥 Recomendado – Mejor balance costo/valor.** Ideal para: Marcas que buscan escalar con un ecosistema de marketing automatizado. Incluye todo lo de Impulso, gestión mensual de campañas, automatización de 2 flujos y Dashboard en tiempo real.</p>
+                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Crecimiento')">Contratar</button></div>
+                    </div>
+                    <!-- PAQUETE DOMINIO ACTUALIZADO -->
+                    <div class="package-card">
+                        <div class="package-title">Dominio (Full Stack Marketing)</div>
+                        <div class="price">4,000 USD</div>
+                        <p class="small">**👑 Paquete Premium.** Ideal para: Empresas que necesitan un partner estratégico en marketing de principio a fin. Incluye todo lo de Crecimiento + estrategia de marca integral, activación offline/online, growth loops y equipo dedicado.</p>
+                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Dominio')">Contratar</button></div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:24px; padding-top:16px; border-top:1px dashed rgba(255,255,255,0.1)">
+                    <p class="small" style="font-size:14px;">¿No estás seguro de dónde empezar o qué paquete necesitas?</p>
+                    <!-- BOTÓN MODIFICADO para abrir el Diagnóstico localmente -->
+                    <button 
+                        class="comosny-btn" 
+                        style="background:#ff6ec7; color:#040017; font-size:16px; padding:10px 20px;" 
+                        onclick="closeComosny(); openDiagnostico();"
+                    >
+                        🛑 ¡Detén el Caos! — ⚡️ Mini-Diagnóstico
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para Mini Diagnóstico Express -->
+    <div id="diagnosticoPanel" class="panel-bg">
+        <div class="panel-content">
+            <!-- Contenedor dinámico para el formulario y las pantallas de gracias -->
+            <div id="diagnosticoContainer">
+                <!-- El contenido se cargará por JavaScript (Formulario o Pantalla de Gracias) -->
+            </div>
+            <button class="linkbtn" style="margin-top: 20px;" onclick="closeDiagnostico()">Cerrar</button>
+        </div>
+    </div>
+
     <script>
-        document.getElementById('current-year').textContent = new Date().getFullYear();
+        // --- Custom Message Box Functions (Replacing alert()) ---
+        function showMessageBox(title, message) {
+            document.getElementById('messageTitle').textContent = title;
+            document.getElementById('messageText').textContent = message;
+            document.getElementById('messageOverlay').style.display = 'grid';
+        }
 
-        // Partículas flotantes
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const particles = [];
-        const particleCount = 60;
+        function closeMessageBox() {
+            document.getElementById('messageOverlay').style.display = 'none';
+        }
+        
+        // --- Main App Logic ---
+        document.getElementById('yr').textContent = new Date().getFullYear();
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 3 + 1;
-                this.color = `rgba(255,110,199,${Math.random()})`;
-                this.speedX = (Math.random() - 0.5) * 1;
-                this.speedY = (Math.random() - 0.5) * 1;
+        const vid = document.getElementById('trinityVideo');
+        const toggleSound = document.getElementById('toggleSound');
+        const playPause = document.getElementById('playPause');
+        const status = document.getElementById('videoStatus');
+        const openComosnyBtn = document.getElementById('open-comosny');
+        const comosnyPanel = document.getElementById('comosnyPanel');
+        const openDiagnosticoBtn = document.getElementById('open-diagnostico');
+        const diagnosticoPanel = document.getElementById('diagnosticoPanel');
+        const diagnosticoContainer = document.getElementById('diagnosticoContainer');
+        
+        // URL de ejemplo para el checkout externo (se usa en los paquetes)
+        const SYSTEME_FORM_URL = "https://mock-systeme-funnel.com/checkout-trinity"; 
+        
+        // WEBHOOK DE N8N PARA EL DIAGNÓSTICO
+        const WEBHOOK_URL = 'https://quantumcomosny.app.n8n.cloud/webhook/QuantumCore';
+        
+        // Definición de las URLs de destino para cada paquete (usadas en la pantalla de Gracias)
+        const PURCHASE_LINKS = {
+            'Tráfico': "https://tulink.impulso.com",
+            'Conversiones': "https://tulink.crecimiento.com",
+            'Fidelización': "https://tulink.dominio.com"
+        };
+
+        // --- Video Controls ---
+        // Play/pause video
+        playPause.addEventListener('click', () => {
+            if (vid.paused) { 
+                vid.play(); 
+                playPause.textContent='⏸ Pausar'; 
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if(this
+            else { 
+                vid.pause(); 
+                playPause.textContent='▶ Reproducir'; 
+            }
+            updateStatus();
+        });
+
+        // Toggle sound (needs user interaction to activate audio)
+        toggleSound.addEventListener('click', () => {
+            if (vid.muted) {
+                vid.muted = false;
+                vid.play().catch(()=>{ /* ignore */ }); // Attempt to play if paused by browser
+                toggleSound.textContent = '🔊 Silenciar';
+            } else {
+                vid.muted = true;
+                toggleSound.textContent = '▶️ Activar sonido';
+            }
+            updateStatus();
+        });
+
+        function updateStatus(){
+            const s = (vid.paused ? 'pausado' : 'reproduciendo') + ' • audio: ' + (vid.muted ? 'silenciado' : 'activo');
+            status.textContent = 'Video: ' + s;
+        }
+
+        // Auto-play attempt muted first on load
+        window.addEventListener('load', ()=> {
+            vid.play().catch(()=>{ /* ignore autoplay block */ });
+            updateStatus();
+        });
+
+        // --- COMOSNY Panel Functions ---
+        // COMOSNY panel open/close
+        openComosnyBtn.addEventListener('click', ()=> {
+            comosnyPanel.style.display = 'grid'; // Use grid to center content
+        });
+        function closeComosny(){ 
+            comosnyPanel.style.display = 'none'; 
+        }
+
+        // Open Checkout / Form with prefilled product param (Usado en el panel COMOSNY)
+        function openCheckout(packageName){
+            // Appends query params to pass selected package: ?package=PackageName
+            const url = new URL(SYSTEME_FORM_URL);
+            url.searchParams.set('package', packageName.replace(/\s/g, '+'));
+            window.open(url.toString(), '_blank');
+        }
+
+        // --- DIAGNÓSTICO Modal Logic (Nuevo) ---
+
+        // Configuración estática del diagnóstico (basada en el JSON proporcionado)
+        const DIAGNOSTICO_CONFIG = {
+            pages: {
+                optin: {
+                    headline: "🚀 Mini Diagnóstico Express",
+                    subheadline: "Descubre en segundos dónde está tu cuello de botella y recibe tu plan recomendado",
+                    fields: [
+                        {name: "nombre", label: "Nombre", type: "text", required: true},
+                        {name: "email", label: "Email", type: "email", required: true},
+                        {
+                            name: "bloqueo", 
+                            label: "¿Dónde sientes tu mayor bloqueo?",
+                            type: "radio",
+                            options: [
+                                {label: "🌐 Tráfico — Quiero más visitantes", value: "trafico"},
+                                {label: "📈 Conversiones — Mis leads no compran", value: "conversiones"},
+                                {label: "🤝 Fidelización — No logro retener clientes", value: "fidelizacion"}
+                            ],
+                            required: true
+                        }
+                    ],
+                    buttonLabel: "Obtener diagnóstico express",
+                },
+                thankYou: {
+                    trafico: {
+                        headline: "🌐 Tu reto principal es el TRÁFICO",
+                        subheadline: "Tu marca necesita visibilidad inmediata. El paquete <b>Impulso</b> es tu mejor aliado.",
+                        buttonLabel: "Ver Paquete Impulso 🚀",
+                        link: PURCHASE_LINKS.Tráfico
+                    },
+                    conversiones: {
+                        headline: "📈 Tu reto principal son las CONVERSIONES",
+                        subheadline: "Tu embudo pierde fuerza en el cierre. El paquete <b>Crecimiento</b> está diseñado para ti.",
+                        buttonLabel: "Ver Paquete Crecimiento 📈",
+                        link: PURCHASE_LINKS.Conversiones
+                    },
+                    fidelizacion: {
+                        headline: "🤝 Tu reto principal es la FIDELIZACIÓN",
+                        subheadline: "Tienes clientes, pero no permanecen. El paquete <b>Dominio</b> es la solución integral.",
+                        buttonLabel: "Ver Paquete Dominio 🏆",
+                        link: PURCHASE_LINKS.Fidelización
+                    }
+                }
+            }
+        };
+
+        // Abre el modal y muestra el formulario de optin
+        openDiagnosticoBtn.addEventListener('click', () => {
+            diagnosticoPanel.style.display = 'grid';
+            renderOptinForm();
+        });
+
+        function openDiagnostico() {
+             diagnosticoPanel.style.display = 'grid';
+             renderOptinForm();
+        }
+
+        function closeDiagnostico(){
+            diagnosticoPanel.style.display = 'none';
+        }
+
+        // Renderiza la vista inicial del formulario (Captura Diagnóstico)
+        function renderOptinForm() {
+            const config = DIAGNOSTICO_CONFIG.pages.optin;
+            
+            let formHTML = `
+                <h2 style="font-size: 28px; margin-bottom: 5px;">${config.headline}</h2>
+                <p style="opacity: 0.8; margin-bottom: 25px;">${config.subheadline}</p>
+                <form id="diagnosticoForm">
+            `;
+
+            config.fields.forEach(field => {
+                formHTML += `<div class="diag-form-group">`;
+                formHTML += `<label for="${field.name}">${field.label}</label>`;
+
+                if (field.type === 'radio') {
+                    formHTML += `<div class="diag-radio-options">`;
+                    field.options.forEach(option => {
+                        formHTML += `
+                            <label>
+                                <input type="radio" name="${field.name}" value="${option.value}" required>
+                                ${option.label}
+                            </label>
+                        `;
+                    });
+                    formHTML += `</div>`;
+                } else {
+                    formHTML += `<input type="${field.type}" id="${field.name}" name="${field.name}" required>`;
+                }
+
+                formHTML += `</div>`;
+            });
+
+            formHTML += `
+                    <button type="submit" class="diag-button">${config.buttonLabel}</button>
+                </form>
+            `;
+            
+            diagnosticoContainer.innerHTML = formHTML;
+
+            // Adjunta el event listener al formulario recién creado
+            document.getElementById('diagnosticoForm').addEventListener('submit', handleFormSubmit);
+        }
+        
+        // Function for exponential backoff delay
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Maneja el envío del formulario y llama al webhook de n8n
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const MAX_RETRIES = 3;
+
+            // 1. Recoger datos
+            const formData = new FormData(event.target);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+
+            const bloqueo = data.bloqueo; // trafico, conversiones, o fidelizacion
+            if (!bloqueo) {
+                showMessageBox("Error", "Por favor, selecciona tu principal bloqueo.");
+                return;
+            }
+            
+            // UX: Desactivar botón y mostrar estado de carga
+            const submitButton = event.target.querySelector('.diag-button');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Enviando...';
+            submitButton.disabled = true;
+
+            // 2. Intentar envío con reintentos (Exponential Backoff)
+            let success = false;
+            for (let i = 0; i < MAX_RETRIES; i++) {
+                try {
+                    const response = await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        success = true;
+                        break; // Éxito
+                    } else {
+                        console.error(`Attempt ${i + 1} failed with status: ${response.status}`);
+                    }
+                } catch (error) {
+                    console.error(`Attempt ${i + 1} failed with error:`, error);
+                }
+
+                if (i < MAX_RETRIES - 1) {
+                    const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s
+                    await sleep(delay);
+                }
+            }
+
+            // 3. Procesar resultado
+            // Restaurar estado del botón
+            submitButton.textContent = originalText;
+            submitButton.disabled = false;
+            
+            if (success) {
+                console.log("Datos enviados a n8n exitosamente:", data);
+                
+                let thankYouKey;
+                switch(bloqueo) {
+                    case 'trafico': thankYouKey = 'trafico'; break;
+                    case 'conversiones': thankYouKey = 'conversiones'; break;
+                    case 'fidelizacion': thankYouKey = 'fidelizacion'; break;
+                    default: showMessageBox("Error", "Error interno al determinar el plan."); return;
+                }
+
+                renderThankYouScreen(thankYouKey);
+            } else {
+                // Fallback si todos los reintentos fallan
+                showMessageBox(
+                    "Error de Conexión", 
+                    "No pudimos registrar tu diagnóstico. Por favor, revisa tu conexión e inténtalo de nuevo."
+                );
+            }
+        }
+
+        // Renderiza la pantalla de agradecimiento (Gracias X)
+        function renderThankYouScreen(key) {
+            const config = DIAGNOSTICO_CONFIG.pages.thankYou[key];
+            
+            const thankYouHTML = `
+                <div class="diag-thankyou">
+                    <h2 style="font-size: 28px;">${config.headline}</h2>
+                    <p style="opacity: 0.9; font-weight: 500; margin-bottom: 30px;">${config.subheadline}</p>
+                    <button 
+                        class="diag-button"
+                        onclick="window.open('${config.link}', '_blank'); closeDiagnostico();"
+                        style="width: auto; padding: 12px 30px;"
+                    >
+                        ${config.buttonLabel}
+                    </button>
+                    <p style="margin-top: 20px; font-size: 13px; opacity: 0.7;">Serás redirigido a la página de checkout.</p>
+                </div>
+            `;
+            
+            diagnosticoContainer.innerHTML = thankYouHTML;
+        }
+
+
+    </script>
+</body>
+</html>
