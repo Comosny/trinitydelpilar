@@ -1,668 +1,889 @@
 <!doctype html>
 <html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Trinity | Mi Frecuencia 2.0 — COMOSNY</title>
-    <meta name="description" content="Trinity by COMOSNY — presencia viva, resonancia MERAKI. Estructura claridad donde otros solo crean ruido." />
-    <!-- OG tags -->
-    <meta property="og:title" content="Trinity | Mi Frecuencia 2.0 - Arquitectura Operativa" />
-    <meta property="og:description" content="Trinity by COMOSNY — Estructura humana, estrategia inquebrantable." />
-    <meta property="og:type" content="website" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Trinity — Comosny</title>
+  <!-- Load Tailwind CSS for utility classes -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{
+      --bg:#000;
+      --card:#0b0b0b;
+      --muted:#9aa0a6;
+      --gold:#d4af37;
+      --cyan:#00e0ff;
+      --glass: rgba(255,255,255,0.04);
+      --max-width:1200px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    /* Google Font */
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+    
+    html,body{height:100%;margin:0;background:var(--bg);color:#fff;-webkit-font-smoothing:antialiased}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max-width);margin:0 auto;padding:0 20px}
+    
+    /* Header & Navigation */
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 0;z-index:60;position:sticky;top:0;background:rgba(0,0,0,0.9);backdrop-filter:blur(4px)}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{height:48px;display:block}
+    nav{display:flex;gap:12px}
+    .btn-ghost{padding:8px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);color:var(--muted);background:transparent;cursor:pointer;transition:all .15s}
+    .btn-ghost:hover,.btn-ghost.active{color:var(--cyan);border-color:rgba(0,224,255,0.12)}
+    
+    /* Hero */
+    .hero{position:relative;height:78vh;min-height:400px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding-top:40px}
+    .video-bg{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;filter:brightness(.35);z-index:0}
+    .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 10%, rgba(0,0,0,0.45) 60%, rgba(0,0,0,0.8) 100%);z-index:1}
+    .hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:0 20px}
+    h1{margin:0;font-size:clamp(26px,5vw,48px);color:var(--gold);font-weight:800;line-height:1.02}
+    p.lead{color:var(--muted);margin-top:12px;margin-bottom:20px;font-size:clamp(14px,1.7vw,18px)}
+    .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
+    .btn-primary{background:var(--gold);color:#000;padding:12px 22px;border-radius:999px;font-weight:700;cursor:pointer;border:none;box-shadow:0 6px 18px rgba(212,175,55,0.18);transition:transform .14s, box-shadow .14s}
+    .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(212,175,55,0.25)}
+    .btn-primary:disabled{opacity:0.6;cursor:not-allowed;transform:none;box-shadow:none}
+    .btn-outline{padding:10px 18px;border-radius:999px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted);transition:all .15s}
+    .btn-outline:hover{border-color:var(--cyan);color:#fff}
+    
+    /* video card */
+    .video-card{max-width:920px;margin:18px auto 0;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 60px rgba(0,0,0,0.6);position:relative}
+    .video-controls{position:absolute;right:12px;bottom:12px;display:flex;gap:8px;z-index:3}
+    .micro-btn{background:rgba(0,0,0,0.55);padding:8px 10px;border-radius:999px;color:#fff;border:1px solid rgba(255,255,255,0.04);cursor:pointer;transition:all .15s}
+    .micro-btn:hover{background:rgba(255,255,255,0.03)}
+    
+    /* small intro */
+    .intro{padding:28px 0 40px;text-align:center;color:var(--muted)}
+    
+    /* Banner */
+    .banner{display:flex;justify-content:center;padding:18px 0}
+    .banner img{max-width:100%;height:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.04)}
+    
+    /* Packs & Blog Grid */
+    .page-section{padding:40px 0 80px}
+    .grid{display:grid;grid-template-columns:1fr;gap:18px}
+    @media(min-width:640px){.grid-packs{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:880px){.grid-packs{grid-template-columns:repeat(3,1fr)}}
+    
+    /* Cards */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:20px;border:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;height:100%;transition:transform .2s}
+    .card:hover{transform:translateY(-4px)}
+    .card h3{margin:0;font-size:20px}
+    .price{font-weight:800;font-size:20px;margin-top:12px;color:var(--gold)}
+    .details{margin:12px 0;color:var(--muted);flex:1}
+    .card button{margin-top:12px}
+    .highlight{border:1px solid rgba(212,175,55,0.18);box-shadow:0 10px 30px rgba(212,175,55,0.06)}
 
-    <!-- Google font (Inter) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    /* Blog Specific */
+    .article-card{border:1px solid rgba(255,255,255,0.06); padding:20px; border-radius:12px; background:var(--card); transition:background .2s, border-color .2s}
+    .article-card:hover{background:rgba(255,255,255,0.02); border-color:var(--gold)}
+    .article-card h4{font-size:22px; color:#fff; margin-bottom:8px}
+    .article-meta{font-size:12px; color:var(--cyan); margin-bottom:12px; font-weight:600}
+    .read-more{color:var(--gold); font-weight:600; display:inline-block; margin-top:10px}
+    
+    /* Modal */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.72);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:120;opacity:0;pointer-events:none;transition:opacity .22s}
+    .modal-backdrop.open{opacity:1;pointer-events:auto}
+    .modal{width:92%;max-width:560px;background:#0f1113;border-radius:14px;padding:20px;border:1px solid rgba(212,175,55,0.08);box-shadow:0 0 40px rgba(212,175,55,0.1), 0 30px 80px rgba(0,0,0,0.6);position:relative;}
+    .modal-lg{max-width:800px; max-height: 90vh; display: flex; flex-direction: column;}
+    .modal h4{margin:0 0 8px;color:var(--gold)}
+    .field{margin-bottom:10px}
+    .field input[type="text"],.field input[type="email"]{width:100%;padding:12px;border-radius:10px;background:#0b0d0f;border:1px solid rgba(255,255,255,0.04);color:#fff;outline:none;transition:border-color .15s}
+    .field input[type="text"]:focus,.field input[type="email"]:focus{border-color:var(--cyan)}
+    .radios{display:flex;flex-direction:column;gap:8px;color:var(--muted);font-size:14px}
+    .radios label{cursor:pointer;padding:4px 0}
+    .result{margin-top:12px;padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(212,175,55,0.05), rgba(0,0,0,0.08));border:1px solid rgba(212,175,55,0.1)}
+    .result h5{margin:0;font-size:18px}
+    .result p{color:var(--muted);margin:8px 0 12px;line-height:1.4}
+    .small{font-size:13px;color:var(--muted)}
+    
+    /* Floating chat */
+    .chat{position:fixed;right:18px;bottom:18px;width:56px;height:56px;border-radius:999px;background:var(--cyan);display:flex;align-items:center;justify-content:center;color:#000;z-index:140;cursor:pointer;box-shadow:0 12px 30px rgba(0,224,255,0.25);transition:transform .15s}
+    .chat:hover{transform:scale(1.05)}
+    
+    /* Article Content Specific */
+    #articleContent {
+      overflow-y: auto;
+      padding-right: 10px;
+    }
+    #articleContent h5 {
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    #articleContent p {
+      line-height: 1.6;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 15px;
+    }
 
-    <style>
-        :root{
-            --bg1:#0f032e; --bg2:#1a032e; --glass: rgba(255,255,255,0.06);
-            --accent-a: linear-gradient(90deg, #ff6ec7, #8A2BE2, #00FFFF);
-            --btn-shadow: 0 6px 18px rgba(0,0,0,0.45);
-            --maxw:980px;
-            /* Colores de Diagnóstico */
-            --diag-bg: #111111; /* Color de fondo del modal del diagnóstico */
-            --diag-accent: #d4af37; /* Color de acento (Botones/Éxito) */
-        }
-        *{box-sizing:border-box}
-        body{
-            margin:0; font-family:Inter,system-ui,Arial,sans-serif;
-            color:#fff; background: radial-gradient(circle at 20% 10%, #1a0538 0%, #070017 60%);
-            -webkit-font-smoothing:antialiased;
-            -moz-osx-moz-osx-font-smoothing:grayscale;
-            min-height:100vh; display:flex; align-items:center; justify-content:center;
-            padding:24px 16px; /* Ajuste de padding para móvil */
-        }
-        .wrap{width:100%; max-width:var(--maxw); margin:0 auto; position:relative; z-index:2}
-        header{display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px}
-        .brand{display:flex; gap:12px; align-items:center}
-        .logo{font-weight:800; letter-spacing:0.6px; font-size:18px}
-        .comosny-btn{
-            background:linear-gradient(90deg, #8A2BE2, #00FFFF);
-            color:#000;
-            border:none; padding:8px 12px; border-radius:12px; cursor:pointer; font-weight:700;
-            box-shadow: 0 4px 10px rgba(138, 43, 226, 0.4);
-            transition: transform 0.2s;
-            line-height: 1;
-        }
-        .comosny-btn:hover{transform:translateY(-1px); box-shadow: 0 6px 15px rgba(138, 43, 226, 0.6);}
-        .top-actions{display:flex; gap:8px; align-items:center}
-        /* [EDITED] Padding reducido de 22px a 20px */
-        .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:16px; padding:20px; box-shadow:var(--btn-shadow); display:flex; gap:18px; align-items:center}
-        .left{
-            flex:1;
-            text-align: center; 
-        }
-        .right{flex:1}
-        h1{font-size:28px; margin:0 0 6px 0; line-height:1.02; letter-spacing:-0.5px}
-        .sub{color:#cfc5ff; opacity:.85; margin-bottom:12px}
-        .btns{
-            display:flex; 
-            gap:10px; 
-            flex-wrap:wrap;
-            justify-content: center; 
-        }
-        .cta{padding:12px 16px; border-radius:12px; font-weight:700; cursor:pointer; border:none; background:var(--accent-a); color:#040017; box-shadow:var(--btn-shadow); transition:transform 0.2s;}
-        .cta:hover{transform:scale(1.02);}
-        .linkbtn{background:transparent; border:1px solid rgba(255,255,255,0.08); padding:10px 12px; border-radius:12px; cursor:pointer; color:#fff; transition:border-color 0.2s; line-height: 1;}
-        .linkbtn:hover{border-color:rgba(255,255,255,0.3);}
-        .video-wrap{background:var(--glass); padding:10px; border-radius:14px; display:flex; flex-direction:column; gap:12px; align-items:center}
-        video{width:100%; border-radius:10px; max-height:420px; object-fit:cover; display:block; background-color: #000;}
-        .audio-controls{display:flex; gap:8px; align-items:center; flex-wrap: wrap; justify-content: center;}
-        .small{font-size:13px; color:#d9d4ff; opacity:.9}
-        .socials{
-            display:flex; 
-            gap:8px; 
-            margin-top:8px;
-            justify-content: center; 
-        }
-        .socials a{padding:8px 10px; border-radius:10px; background:rgba(255,255,255,0.02); text-decoration:none; color:#fff; font-weight:600; font-size:13px}
-        footer{margin-top:24px; text-align:center; color:rgba(255,255,255,0.6); font-size:13px}
+    /* util */
+    .hidden{display:none}
+    .muted{color:var(--muted)}
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
 
-        /* Testimonials/Social Proof Section */
-        .proof-section{margin-top:28px; padding:18px 22px; background:rgba(255,255,255,0.03); border-radius:16px}
-        .proof-section h3{
-            font-size:16px; 
-            font-weight:700; 
-            margin:0 0 10px 0; 
-            color:#fff; 
-            opacity:0.9;
-            text-align: center; 
-        }
-        .logo-grid{display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:center}
-        .logo-item{font-size:18px; font-weight:600; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:1px}
-
-        /* Panel Comosny Styling */
-        .panel-bg{display:none; position:fixed; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(10,6,20,0.95)); backdrop-filter:blur(6px); z-index:99; align-items:center; justify-content:center; overflow-y:auto}
-        .panel-content{width:96%; max-width:820px; margin:24px auto; background: #050014; border-radius:16px; padding:24px; color:#fff; box-shadow:0 30px 80px rgba(0,0,0,0.6); animation: fadeIn 0.3s ease-out;}
-        @keyframes fadeIn { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
-        .package-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; margin-top:16px}
-        .package-card{background:linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)); padding:16px; border-radius:12px; border:1px solid rgba(255,255,255,0.1); transition:transform 0.3s}
-        .package-card:hover{transform:scale(1.01); border-color:#8A2BE2}
-        .price{font-size:20px; font-weight:800; margin:4px 0}
-        .package-title{font-weight:700; font-size:16px; margin-bottom:4px; background:var(--accent-a); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-
-        /* Custom Message Box Styling (replacing alert) */
-        .msg-overlay{position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(3px); z-index:100; display:none; place-items:center}
-        .msg-box{background:#0d022b; border-radius:14px; padding:24px; width:90%; max-width:400px; box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-        .msg-box h4{margin-top:0; color:#ff6ec7; font-size:18px}
-        .msg-box p{font-size:14px; color:#d9d4ff}
-        .msg-box button{float:right; margin-top:15px; background:#8A2BE2; color:#fff; padding:8px 16px; border:none; border-radius:8px; cursor:pointer}
-        
-        /* Diagnóstico Modal Specific Styling */
-        #diagnosticoPanel .panel-content {
-            max-width: 500px;
-            background: var(--diag-bg);
-            color: var(--diag-color, #ffffff);
-            padding: 40px;
-            border-radius: 16px;
-            font-family: 'Montserrat', sans-serif;
-            text-align: center;
-        }
-
-        .diag-form-group {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .diag-form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-        .diag-form-group input[type="text"],
-        .diag-form-group input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.5);
-            color: #ffffff;
-        }
-
-        /* Radio buttons styling */
-        .diag-radio-options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .diag-radio-options label {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: background 0.2s, border-color 0.2s;
-            font-weight: 400;
-        }
-        .diag-radio-options label:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: var(--diag-accent);
-        }
-        .diag-radio-options input[type="radio"] {
-            margin-right: 12px;
-            accent-color: var(--diag-accent);
-            transform: scale(1.1);
-        }
-
-        /* Button styles from JSON */
-        .diag-button {
-            width: 100%;
-            padding: 15px 20px;
-            background: var(--diag-accent);
-            color: #000000;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: opacity 0.2s;
-        }
-        .diag-button:hover {
-            opacity: 0.9;
-        }
-
-        /* Thank You Screen */
-        .diag-thankyou {
-            text-align: center;
-            padding: 30px 0;
-        }
-        .diag-thankyou h2 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--diag-accent);
-        }
-        .diag-thankyou p {
-            font-size: 16px;
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        /* Responsive */
-        @media (max-width:840px){
-            .hero{flex-direction:column}
-            .left,.right{width:100%}
-            h1{font-size:24px}
-            .panel-content{margin:12px auto; padding:18px}
-            .top-actions { gap: 4px; }
-            .comosny-btn { font-size: 14px; padding: 6px 10px; }
-            .linkbtn { font-size: 13px; padding: 8px 10px; }
-            #diagnosticoPanel .panel-content { padding: 25px; }
-        }
-        @media (max-width: 480px) {
-            header { flex-direction: column; align-items: flex-start; }
-            .top-actions { margin-top: 8px; width: 100%; justify-content: space-between; }
-        }
-    </style>
+    .page-view.hidden {
+      display: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="wrap">
-        <header>
-            <div class="brand">
-                <div class="logo">TRINITY</div>
-                <div class="small">by COMOSNY</div>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <!-- Logo as a link to Home -->
+      <a href="/" data-link="/" class="logo">
+        <img src="https://placehold.co/48x48/d4af37/000?text=TRN" alt="Comosny logo" style="height:48px;width:auto;border-radius:8px;object-fit:cover">
+        <div class="small muted">Comosny — Trinity</div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <!-- Using data-link for client-side routing -->
+        <button class="btn-ghost" data-link="/packs">Packs</button>
+        <button class="btn-ghost" data-link="/blog">Blog</button>
+      </nav>
+    </header>
+  </div>
+  
+  <main id="app-content">
+    <!-- View 1: HOME -->
+    <div data-view="home" class="page-view">
+      <!-- HERO -->
+      <section class="hero">
+        <!-- video background (Placeholder Video) -->
+        <video id="heroVideo" class="video-bg" autoplay muted loop playsinline preload="metadata">
+          <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
+          Tu navegador no soporta video.
+        </video>
+
+        <div class="overlay"></div>
+
+        <div class="container hero-content">
+          <!-- UPDATED COPY: Beneficio y Dolor -->
+          <h1>De la Parálisis a la Estrategia: Desbloquea tu Siguiente Nivel con Trinity IA</h1>
+          <p class="lead">Deja de adivinar. Obtén tu diagnóstico estratégico claro y listo para ejecutar en menos de 60 segundos.</p>
+
+          <div class="cta-row">
+            <button class="btn-primary" id="openDiagBtn">Descubrir mi punto de bloqueo →</button>
+            <!-- Link to Packs page using data-link -->
+            <button class="btn-outline" data-link="/packs">Ver Paquetes</button>
+          </div>
+
+          <div class="video-card" style="margin-top:22px;">
+            <div style="height:220px;display:flex;align-items:center;justify-content:center;color:var(--muted);">
+              <span class="muted text-sm">Transmisión Trinity — presentación</span>
             </div>
 
-            <div class="top-actions">
-                <!-- Top-right Comosny button -->
-                <button class="comosny-btn" id="open-comosny">Explora Comosny</button>
-                <!-- small quick links (El botón 'Código' fue eliminado) -->
+            <!-- Controls (sobre el hero) -->
+            <div class="video-controls">
+              <button id="playPauseBtn" class="micro-btn">Pause</button>
+              <button id="muteBtn" class="micro-btn">Unmute</button>
             </div>
-        </header>
-
-        <main class="hero" role="main">
-            <div class="left">
-                <!-- COPIA OPTIMIZADA B.A.S.E. -->
-                <h1>Trinity:<br><span class="sub">Claridad Radical. Conexión Viral.</span></h1>
-                
-                <!-- Párrafos condensados y optimizados para impacto viral. -->
-                <p class="small">Arquitectura MERAKI para escalar sin fricción. Ordena tu operación y activa tu resonancia.</p>
-
-                <div class="btns" style="margin-top:18px">
-                    <button class="cta" onclick="window.open('https://onlyfans.com/trinitydelpilar','_blank')">🔥 Secret (OnlyFans)</button>
-                    <!-- El Mini-Diagnóstico ahora abre un modal en la página -->
-                    <button class="linkbtn" id="open-diagnostico">📝 Mini-Diagnóstico</button>
-                    <button class="linkbtn" onclick="window.open('https://instagram.com/trinitydelpilar','_blank')">✨ Instagram</button>
-                </div>
-
-                <div class="socials" style="margin-top:12px">
-                    <a href="https://twitter.com/trinitydelpilar" target="_blank" rel="noopener">X / Twitter</a>
-                    <a href="https://tiktok.com/@trinitydelpilar" target="_blank" rel="noopener">TikTok</a>
-                    <a href="mailto:comosnythf@gmail.com">Contacto</a>
-                </div>
-            </div>
-
-            <div class="right">
-                <div class="video-wrap">
-                    <!-- Placeholder de video reemplazado con URL de ejemplo y error handling -->
-                    <video id="trinityVideo" playsinline loop muted preload="auto" poster="https://placehold.co/600x400/1a032e/ffffff?text=Video+Loading">
-                        <!-- Usar una URL de ejemplo. Reemplaza con tu video real (e.g., MP4 alojado en CDN) -->
-                        <source src="https://mock-cdn.com/trinity-system-intro.mp4" type="video/mp4" onerror="document.getElementById('trinityVideo').poster='https://placehold.co/600x400/cc0000/ffffff?text=Video+Error'; showMessageBox('Error de Video', 'No se pudo cargar el video de demostración. Verifica la URL de la fuente.');">
-                        Tu navegador no soporta video HTML5.
-                    </video>
-
-                    <div class="audio-controls">
-                        <button id="toggleSound" class="linkbtn">▶️ Activar sonido</button>
-                        <button id="playPause" class="linkbtn">⏯ Reproducir / Pausar</button>
-                        <div class="small" id="videoStatus">Video: pausado • audio: silenciado</div>
-                    </div>
-
-                    <div style="width:100%; display:flex; gap:8px; justify-content:center">
-                        <button class="linkbtn" onclick="document.getElementById('trinityVideo').requestFullscreen()">🔍 Pantalla</button>
-                        <button class="linkbtn" onclick="window.scrollTo({top:document.body.scrollHeight, behavior:'smooth'})">▼ Más</button>
-                    </div>
-                </div>
-            </div>
-        </main>
-        
-        <!-- Sección de Validación Social -->
-        <section class="proof-section">
-            <h3>Arquitectura Comprobada. No es teoría, es ejecución.</h3>
-            <div class="logo-grid">
-                <span class="logo-item">Fundador Agotado</span>
-                <span class="logo-item">CEO Operativo</span>
-                <span class="logo-item">Talento Inconforme</span>
-            </div>
-        </section>
-
-        <footer>
-            © <span id="yr"></span> COMOSNY — Paz a Bordo · MERAKI Emotional Engineering
-        </footer>
-    </div>
-
-    <!-- Custom Message Box Modal (Reemplaza a alert()) -->
-    <div id="messageOverlay" class="msg-overlay">
-        <div class="msg-box">
-            <h4 id="messageTitle">Aviso del Sistema</h4>
-            <p id="messageText"></p>
-            <button onclick="closeMessageBox()">Aceptar</button>
+          </div>
         </div>
+      </section>
+
+      <!-- small intro -->
+      <section class="intro container">
+        <p>Este diagnóstico es una experiencia breve de autoconocimiento estratégico — nada de etiquetas, solo claridad para tu siguiente paso.</p>
+      </section>
+
+      <!-- Banner LinkedIn (visual) (Placeholder Image) -->
+      <section class="banner container">
+        <img src="https://placehold.co/1584x396/0f1113/d4af37?text=Trinity+Core+Strategy" alt="Banner Comosny - Trinity Core Strategy">
+      </section>
+    </div> <!-- end data-view="home" -->
+    
+    <!-- View 2: PACKS -->
+    <div data-view="packs" class="page-view hidden">
+      <section class="page-section container" aria-labelledby="packs-title">
+        <h2 id="packs-title" style="text-align:center;margin:28px 0 18px;font-size:clamp(24px, 4vw, 32px);">💰 Paquetes de Crecimiento</h2>
+        <p class="intro">Elige tu punto de despegue. Todos nuestros paquetes incluyen la inteligencia de Trinity para una ejecución precisa.</p>
+        <div class="grid grid-packs">
+          <!-- Impulso -->
+          <div class="card">
+            <h3>🚀 Impulso</h3>
+            <div class="small muted" style="margin-top:6px">Paquete de entrada</div>
+            <details style="margin:12px 0;color:var(--muted)">
+              <summary style="cursor:pointer;color:var(--gold);font-weight:600">Ver beneficios</summary>
+              <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted);margin-top:6px">
+                <!-- UPDATED BENEFIT COPY -->
+                <li>✅ **Atracción Garantizada:** Lanzamiento de 1 campaña digital rentable.</li>
+                <li>✅ **Conversión Inmediata:** 1 landing page optimizada para captación.</li>
+                <li>✅ **Base de Datos Organizada:** Configuración inicial de tu CRM.</li>
+                <li>✅ **Visibilidad:** Reporte de métricas clave.</li>
+                <li>❌ **Focus Estratégico:** No incluye optimización continua (ideal para tests iniciales).</li>
+              </ul>
+            </details>
+            <!-- UPDATED SUMMARY COPY -->
+            <div class="details">Ideal para: validar mercados, generar primeras bases de datos y establecer tu primera ruta digital con una inversión controlada.</div>
+            <div class="price">$800 USD / mes</div>
+            <button class="btn-primary" onclick="openModalWithPackage('impulso')">Empezar</button>
+          </div>
+
+          <!-- Crecimiento -->
+          <div class="card highlight">
+            <h3>📈 Crecimiento</h3>
+            <div class="small muted" style="margin-top:6px">🔥 Más elegido</div>
+            <details style="margin:12px 0;color:var(--muted)">
+              <summary style="cursor:pointer;color:var(--gold);font-weight:600">Ver beneficios</summary>
+              <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted);margin-top:6px">
+                <!-- UPDATED BENEFIT COPY -->
+                <li>✅ **Consolidación:** Todo lo incluido en el Paquete Impulso.</li>
+                <li>✅ **Escala Continua:** Gestión, optimización y escalado mensual de campañas.</li>
+                <li>✅ **Eficiencia 24/7:** Automatización de 2 flujos clave (ej. bienvenida/abandono de carrito).</li>
+                <li>✅ **Control Total:** Dashboard en tiempo real con KPIs esenciales.</li>
+              </ul>
+            </details>
+            <!-- UPDATED SUMMARY COPY -->
+            <div class="details">Ideal para: escalar resultados consistentemente, automatizar el 80% del proceso de venta y convertir el tráfico en clientes recurrentes.</div>
+            <div class="price">$1,500 USD / mes</div>
+            <button class="btn-primary" onclick="openModalWithPackage('crecimiento')">Elegir este</button>
+          </div>
+
+          <!-- Dominio -->
+          <div class="card">
+            <h3>🏆 Dominio</h3>
+            <div class="small muted" style="margin-top:6px">👑 Full Stack Marketing</div>
+            <details style="margin:12px 0;color:var(--muted)">
+              <summary style="cursor:pointer;color:var(--gold);font-weight:600">Ver beneficios</summary>
+              <ul style="margin:8px 0 0;padding-left:18px;color:var(--muted);margin-top:6px">
+                <!-- UPDATED BENEFIT COPY -->
+                <li>✅ **Ecosistema Completo:** Todo lo de Crecimiento y Fidelización.</li>
+                <li>✅ **Liderazgo de Marca:** Estrategia integral de posicionamiento y comunicación.</li>
+                <li>✅ **Sinergia Total:** Activación de canales online y offline unificados.</li>
+                <li>✅ **Socio Estratégico:** Equipo dedicado, sesiones estratégicas quincenales y soporte prioritario.</li>
+              </ul>
+            </details>
+            <!-- UPDATED SUMMARY COPY -->
+            <div class="details">Ideal para: dominar tu nicho de mercado, transformar tu marca en un activo de alto valor y asegurar la fidelización a largo plazo.</div>
+            <div class="price">$4,000 USD / mes</div>
+            <button class="btn-primary" onclick="openModalWithPackage('dominio')">Agendar reunión</button>
+          </div>
+        </div>
+      </section>
+    </div> <!-- end data-view="packs" -->
+
+    <!-- View 3: BLOG -->
+    <div data-view="blog" class="page-view hidden">
+      <section class="page-section container" aria-labelledby="blog-title">
+        <h2 id="blog-title" style="text-align:center;margin:28px 0 18px;font-size:clamp(24px, 4vw, 32px);">🧠 Insights de Trinity</h2>
+        <p class="intro">Artículos estratégicos y análisis profundos para tu crecimiento digital.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Article 1: CRM -->
+          <div class="article-card">
+            <h4>El Futuro del CRM: Automatización y Personalización</h4>
+            <div class="article-meta" id="meta-crm">Estrategia | 12 de Octubre, 2025 | 5 min lectura</div>
+            <!-- UPDATED BLOG COPY -->
+            <p class="muted text-sm">El CRM ya no es un registro, es un predictor. Analizamos cómo **Trinity integra la IA para anticipar el comportamiento de tus clientes**, automatizar las interacciones de alto valor y crear un ciclo de lealtad imbatible.</p>
+            <a href="javascript:void(0)" class="read-more" onclick="openArticleModal('crm')">Leer artículo completo →</a>
+          </div>
+          <!-- Article 2: WhatsApp -->
+          <div class="article-card">
+            <h4>Triple W: Winning WhatsApp Workflows</h4>
+            <div class="article-meta" id="meta-whatsapp">Tecnología | 8 de Octubre, 2025 | 7 min lectura</div>
+            <!-- UPDATED BLOG COPY -->
+            <p class="muted text-sm">**Convierte el chat en caja registradora.** Te mostramos 3 flujos esenciales de WhatsApp que garantizan la entrega de información clave y el cierre de ventas 24/7, liberando a tu equipo para tareas estratégicas.</p>
+            <a href="javascript:void(0)" class="read-more" onclick="openArticleModal('whatsapp')">Leer artículo completo →</a>
+          </div>
+          <!-- Article 3: Diagnosis -->
+          <div class="article-card">
+            <h4>El Diagnóstico de 60 Segundos: ¿Por qué funciona?</h4>
+            <div class="article-meta" id="meta-diagnosis">Producto | 1 de Octubre, 2025 | 3 min lectura</div>
+            <!-- UPDATED BLOG COPY -->
+            <p class="muted text-sm">Detrás de la inmediatez hay **inteligencia profunda.** Explicamos cómo la arquitectura de Gemini nos permite aislar tu cuello de botella estratégico en un minuto, ofreciendo una ruta de acción inmediata y sin rodeos.</p>
+            <a href="javascript:void(0)" class="read-more" onclick="openArticleModal('diagnosis')">Leer artículo completo →</a>
+          </div>
+          <!-- Article 4: Growth Strategy -->
+          <div class="article-card">
+            <h4>Rompiendo el Bloqueo: De Tráfico a Dominio de Mercado</h4>
+            <div class="article-meta" id="meta-growth">Crecimiento | 25 de Septiembre, 2025 | 6 min lectura</div>
+            <!-- UPDATED BLOG COPY -->
+            <p class="muted text-sm">El crecimiento no es lineal, es estratégico. Desglosamos las **4 fases de la metodología Trinity** para convertir una audiencia fría en un mercado cautivo, utilizando datos para una ejecución Full Stack implacable.</p>
+            <a href="javascript:void(0)" class="read-more" onclick="openArticleModal('growth')">Leer artículo completo →</a>
+          </div>
+          <!-- Article 5: Retention -->
+          <div class="article-card">
+            <h4>Metadata vs. Magia: La Fórmula de la Fidelización</h4>
+            <div class="article-meta" id="meta-retention">Branding | 15 de Septiembre, 2025 | 4 min lectura</div>
+            <!-- UPDATED BLOG COPY -->
+            <p class="muted text-sm">La retención es la nueva adquisición. Descubre cómo usamos la **metadata (datos) para diseñar la "magia"** de las experiencias personalizadas que hacen que tus clientes no solo regresen, sino que se conviertan en promotores de tu marca.</p>
+            <a href="javascript:void(0)" class="read-more" onclick="openArticleModal('retention')">Leer artículo completo →</a>
+          </div>
+        </div>
+      </section>
+    </div> <!-- end data-view="blog" -->
+
+  </main>
+
+  <!-- Modal (Now handles Diagnosis and Article View) -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    
+    <!-- Container for Diagnosis Form/Result -->
+    <div id="diagnosisModalContainer" class="modal" role="document" aria-labelledby="modalTitle">
+      <button id="closeModalBtn" style="position:absolute;right:12px;top:12px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer">✕</button>
+      
+      <!-- Form view -->
+      <div id="formView">
+        <h4 id="modalTitle">🚀 Mini Diagnóstico Express</h4>
+        <p class="small" style="margin-bottom:12px">Responde 3 preguntas estratégicas. Tu ruta de crecimiento será analizada por nuestra IA.</p>
+
+        <form id="diagForm">
+          <div class="field">
+            <input type="text" name="nombre" placeholder="Tu nombre" required />
+          </div>
+          <div class="field">
+            <input type="email" name="email" placeholder="Tu correo" required />
+          </div>
+
+          <div style="margin-top:6px" class="field">
+            <label class="small block mb-2">¿Dónde sientes tu mayor bloqueo?</label>
+            <div class="radios">
+              <label><input required type="radio" name="bloqueo" value="Tráfico, Visibilidad y Alcance en Redes Sociales"> 🌐 Tráfico — Visibilidad</label>
+              <label><input type="radio" name="bloqueo" value="Conversiones, Cierre de Ventas y Optimización del Embudo"> 📈 Conversiones — Cerrar ventas</label>
+              <label><input type="radio" name="bloqueo" value="Fidelización, Retención de Clientes y Lifetime Value"> 🤝 Fidelización — Retención</label>
+            </div>
+          </div>
+
+          <input type="hidden" name="paquete" id="paqueteInput" value="general">
+
+          <div style="display:flex;gap:10px;margin-top:12px;align-items:center;flex-wrap:wrap">
+            <button type="submit" class="btn-primary" id="submitBtn">Ver mi ruta de crecimiento →</button>
+            <button type="button" id="resetBtn" class="btn-ghost">Reset</button>
+            <div style="flex:1;text-align:right" class="small muted">Impulsado por Gemini IA.</div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Result view (hidden initially) -->
+      <div id="resultView" class="hidden">
+        <div class="result" role="status" aria-live="polite">
+          <h5 id="resultTitle"></h5>
+          <p id="resultDesc"></p>
+          <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+            <a id="resultPackBtn" class="btn-primary" href="#" target="_blank">Ver paquete recomendado</a>
+            <a id="resultChatBtn" class="btn-ghost" href="#">Hablar con un estratega</a>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Modal-like panel for COMOSNY (backstage) -->
-    <div id="comosnyPanel" class="panel-bg">
-        <div class="panel-content">
-            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px; margin-bottom:12px">
-                <div style="font-weight:800; font-size:22px; color:#00FFFF">COMOSNY — Backstage Operativo</div>
-                <div>
-                    <button class="linkbtn" onclick="closeComosny()">Cerrar</button>
-                </div>
-            </div>
-
-            <div style="margin-top:12px">
-                <p class="small" style="font-size:14px; color:#ff6ec7; font-weight:600;">"Estructuro claridad donde otros solo crean ruido." — Jhovanny Sánchez, CLOEA</p>
-                <p class="small" style="margin-bottom:18px;">Trinity es la demostración en vivo de nuestra metodología. Accede a la **Arquitectura Operativa** para escalar sin fricción y sin perder tu paz.</p>
-
-                <div class="package-grid">
-                    <!-- PAQUETE IMPULSO ACTUALIZADO -->
-                    <div class="package-card">
-                        <div class="package-title">Impulso (Paquete de entrada)</div>
-                        <div class="price">800 USD</div>
-                        <p class="small">**Paquete de entrada.** Ideal para: Negocios que quieren probar el canal digital con bajo riesgo. Incluye: 1 campaña digital, 1 landing page optimizada, setup inicial de CRM y reporte de métricas básico.</p>
-                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Impulso')">Contratar</button></div>
-                    </div>
-                    <!-- PAQUETE CRECIMIENTO ACTUALIZADO -->
-                    <div class="package-card">
-                        <div class="package-title">Crecimiento (Más elegido)</div>
-                        <div class="price">1,500 USD</div>
-                        <p class="small">**🔥 Recomendado – Mejor balance costo/valor.** Ideal para: Marcas que buscan escalar con un ecosistema de marketing automatizado. Incluye todo lo de Impulso, gestión mensual de campañas, automatización de 2 flujos y Dashboard en tiempo real.</p>
-                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Crecimiento')">Contratar</button></div>
-                    </div>
-                    <!-- PAQUETE DOMINIO ACTUALIZADO -->
-                    <div class="package-card">
-                        <div class="package-title">Dominio (Full Stack Marketing)</div>
-                        <div class="price">4,000 USD</div>
-                        <p class="small">**👑 Paquete Premium.** Ideal para: Empresas que necesitan un partner estratégico en marketing de principio a fin. Incluye todo lo de Crecimiento + estrategia de marca integral, activación offline/online, growth loops y equipo dedicado.</p>
-                        <div style="margin-top:12px"><button class="cta" onclick="openCheckout('Dominio')">Contratar</button></div>
-                    </div>
-                </div>
-
-                <div style="text-align:center; margin-top:24px; padding-top:16px; border-top:1px dashed rgba(255,255,255,0.1)">
-                    <p class="small" style="font-size:14px;">¿No estás seguro de dónde empezar o qué paquete necesitas?</p>
-                    <!-- BOTÓN MODIFICADO para abrir el Diagnóstico localmente -->
-                    <button 
-                        class="comosny-btn" 
-                        style="background:#ff6ec7; color:#040017; font-size:16px; padding:10px 20px;" 
-                        onclick="closeComosny(); openDiagnostico();"
-                    >
-                        🛑 ¡Detén el Caos! — ⚡️ Mini-Diagnóstico
-                    </button>
-                </div>
-
-            </div>
+    
+    <!-- Container for Article Reading -->
+    <div id="articleModalContainer" class="modal modal-lg hidden" role="document" aria-labelledby="articleTitle">
+        <button id="closeArticleModalBtn" style="position:absolute;right:12px;top:12px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer">✕</button>
+        <h4 id="articleTitle" style="font-size: 24px;"></h4>
+        <div class="article-meta" id="articleMeta" style="margin-bottom: 20px;"></div>
+        <div id="articleContent" class="text-white">
+            <!-- Article content will be loaded here -->
+        </div>
+        <!-- NEW CTA BLOCK -->
+        <div class="mt-4 pt-4 border-t border-gray-800 flex justify-end">
+            <button id="articleCTABtn" class="btn-primary">Ver paquete recomendado</button>
         </div>
     </div>
     
-    <!-- Modal para Mini Diagnóstico Express -->
-    <div id="diagnosticoPanel" class="panel-bg">
-        <div class="panel-content">
-            <!-- Contenedor dinámico para el formulario y las pantallas de gracias -->
-            <div id="diagnosticoContainer">
-                <!-- El contenido se cargará por JavaScript (Formulario o Pantalla de Gracias) -->
-            </div>
-            <button class="linkbtn" style="margin-top: 20px;" onclick="closeDiagnostico()">Cerrar</button>
-        </div>
-    </div>
+  </div>
 
-    <script>
-        // --- Custom Message Box Functions (Replacing alert()) ---
-        function showMessageBox(title, message) {
-            document.getElementById('messageTitle').textContent = title;
-            document.getElementById('messageText').textContent = message;
-            document.getElementById('messageOverlay').style.display = 'grid';
+  <!-- Floating chat (WhatsApp) -->
+  <div class="chat" onclick="window.open('https://wa.me/573001234567','_blank')">💬</div>
+
+  <!-- Footer Solicitado con Iconos de Redes Sociales -->
+  <footer class="bg-[#0b0b0b] text-white p-6 mt-8 border-t border-gray-800">
+      <!-- Contenedor principal: Justifica el espacio entre la info de autor y el contacto/social -->
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left container">
+
+          <!-- Columna de Derechos de Autor / Texto Principal -->
+          <div class="text-sm">
+              <!-- El texto principal del footer, con el nombre, la marca y la filosofía. Usando clases para adaptar al tema oscuro. -->
+              <p class="font-semibold mb-1 text-gray-400">
+                  Jhovanny Sánchez - CLOEA by <span class="text-white font-bold">@Comosny</span> + <span class="text-[#d4af37]">IAmplifiying Human Frequency</span>
+              </p>
+              <p class="text-xs text-gray-600 mt-1">
+                  Diseño impulsado por Gemini IA. © 2025 Todos los derechos reservados.
+              </p>
+          </div>
+
+          <!-- Grupo de Contacto (Email + Social) -->
+          <div class="flex flex-col md:flex-row items-center space-y-3 md:space-y-0 md:space-x-8">
+              
+              <!-- Columna de Contacto / Email -->
+              <div class="text-sm">
+                  <a href="mailto:comosnythf@gmail.com" class="text-gray-400 hover:text-cyan-400 transition duration-300">
+                      <!-- Icono de correo usando SVG -->
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1 align-middle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8m-1 12H4a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2z" />
+                      </svg>
+                      comosnythf@gmail.com
+                  </a>
+              </div>
+
+              <!-- Bloque de Iconos de Redes Sociales -->
+              <div class="flex space-x-4">
+                  <!-- 1. Instagram -->
+                  <a href="#" target="_blank" aria-label="Instagram" class="text-gray-400 hover:text-cyan-400 transition duration-300">
+                      <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.25.148 4.773 1.564 4.975 4.975.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.25-1.564 4.773-4.975 4.975-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-3.25-.148-4.773-1.564-4.975-4.975-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.148-3.25 1.564-4.773 4.975-4.975 1.266-.058 1.646-.07 4.85-.07zm0 2.138c-3.197 0-3.565.012-4.78.069-2.903.132-3.957 1.186-4.089 4.089-.057 1.215-.069 1.583-.069 4.78s.012 3.565.069 4.78c.132 2.903 1.186 3.957 4.089 4.089 1.215.057 1.583.069 4.78.069s3.565-.012 4.78-.069c2.903-.132 3.957-1.186 4.089-4.089.057-1.215.069-1.583.069-4.78s-.012-3.565-.069-4.78c-.132-2.903-1.186-3.957-4.089-4.089-1.215-.057-1.583-.069-4.78-.069zm0 6.648c-2.072 0-3.75 1.678-3.75 3.75s1.678 3.75 3.75 3.75 3.75-1.678 3.75-3.75-1.678-3.75-3.75-3.75zm0 2.138c.883 0 1.612.729 1.612 1.612s-.729 1.612-1.612 1.612-1.612-.729-1.612-1.612.729-1.612 1.612-1.612zm5.28-4.053c0 .345-.28.625-.625.625h-.002c-.345 0-.625-.28-.625-.625s.28-.625.625-.625h.002c.345 0 .625.28.625.625z"/></svg>
+                  </a>
+                  <!-- 2. Facebook -->
+                  <a href="#" target="_blank" aria-label="Facebook" class="text-gray-400 hover:text-cyan-400 transition duration-300">
+                      <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6"><path d="M14 10h-2v1.5h2v1h-2v4h-1v-4h-2v-1h2v-2c0-1.5 1-2 2-2h1v2zM21 0h-18c-1.657 0-3 1.343-3 3v18c0 1.657 1.343 3 3 3h18c1.657 0 3-1.343 3-3v-18c0-1.657-1.343-3-3-3zm1 19c0 1.102-.898 2-2 2h-18c-1.102 0-2-.898-2-2v-18c0-1.102.898-2 2-2h18c1.102 0 2 .898 2 2v18z"/></svg>
+                  </a>
+                  <!-- 3. LinkedIn -->
+                  <a href="#" target="_blank" aria-label="LinkedIn" class="text-gray-400 hover:text-cyan-400 transition duration-300">
+                      <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-3v-9h3v9zm-1.5-10.732c-.974 0-1.764-.783-1.764-1.75s.789-1.75 1.764-1.75 1.764.783 1.764 1.75-.789 1.75-1.764 1.75zm10.5 10.732h-3v-5.604c0-3.368-4-3.528-4 0v5.604h-3v-9h3v1.765c1.396-2.586 7-2.777 7 2.493v4.742z"/></svg>
+                  </a>
+                  <!-- 4. YouTube -->
+                  <a href="#" target="_blank" aria-label="YouTube" class="text-gray-400 hover:text-cyan-400 transition duration-300">
+                      <svg fill="currentColor" viewBox="0 0 24 24" class="h-6 w-6"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-3.842 16.593c-.309-.168-.501-.497-.501-.849v-7.488c0-.352.192-.681.501-.849l6.549-3.486c.31-.168.682-.168.991 0l6.549 3.486c.309.168.501.497.501.849v7.488c0 .352-.192.681-.501.849l-6.549 3.486c-.31.168-.682.168-.991 0l-6.549-3.486z"/></svg>
+                  </a>
+              </div>
+          </div>
+
+      </div>
+  </footer>
+
+  <script>
+    // --- Gemini API Configuration ---
+    const API_KEY = ""; // Canvas will provide this at runtime
+    const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${API_KEY}`;
+    const N8N_WEBHOOK = 'https://quantumcomosny.app.n8n.cloud/webhook-test/QuantumCore';
+    
+    // --- Package Details for CTA consistency ---
+    const packageDetails = {
+      impulso: { name: 'Impulso', title: '🚀 Ver Paquete Impulso' },
+      crecimiento: { name: 'Crecimiento', title: '📈 Ver Paquete Crecimiento' },
+      dominio: { name: 'Dominio', title: '🏆 Ver Paquete Dominio' },
+    };
+
+
+    // --- Article Data (Content for Blog Modal) ---
+    const articles = {
+      crm: {
+        title: "El Futuro del CRM: Automatización y Personalización",
+        meta: "Estrategia | 12 de Octubre, 2025 | 5 min lectura",
+        relatedPackage: 'dominio', // Fidelización y LTV -> Dominio
+        content: `
+          <p>El CRM ha evolucionado de ser un simple registro de contactos a una **central de inteligencia predictiva**. Ya no es suficiente con saber quién es tu cliente; debes saber qué hará a continuación.</p>
+          <p>En Trinity, vemos el CRM como el corazón de tu estrategia, no solo un buzón de datos. Nuestra IA analiza patrones históricos, interacciones en redes sociales, y comportamiento de navegación para predecir cuándo un cliente está a punto de comprar, desertar o recomendarte.</p>
+          <h5>La Personalización a Escala</h5>
+          <p>El desafío para muchas empresas es personalizar a nivel masivo. Aquí es donde Trinity interviene: segmentamos dinámicamente tu base de datos y automatizamos flujos de comunicación (emails, WhatsApp, SMS) que se sienten 100% manuales y personales, activando la conversión en los puntos de fricción.</p>
+          <p>Un CRM potenciado por IA es la clave para un ciclo de lealtad imbatible, asegurando que cada cliente se sienta visto y valorado, lo que impacta directamente en tu Lifetime Value (LTV).</p>
+          <div class="mt-4 p-3 bg-gray-900 rounded-lg text-sm">
+            **Conclusión Trinity:** Deja de gestionar contactos, empieza a gestionar relaciones rentables.
+          </div>
+        `
+      },
+      whatsapp: {
+        title: "Triple W: Winning WhatsApp Workflows",
+        meta: "Tecnología | 8 de Octubre, 2025 | 7 min lectura",
+        relatedPackage: 'crecimiento', // Conversión y Flujos -> Crecimiento
+        content: `
+          <p>WhatsApp es la plataforma de mensajería más personal y el campo de batalla de la conversión moderna. Si no estás usando flujos automatizados, estás perdiendo ventas por la ventana.</p>
+          <h5>3 Flujos Esenciales para Cerrar Ventas:</h5>
+          <ol class="list-decimal list-inside ml-4 space-y-2 mt-2">
+            <li>**El Retargeting Post-Interés:** Un mensaje automático 24 horas después de que el usuario visitó un producto específico pero no compró, con una oferta limitada o un recurso educativo.</li>
+            <li>**La Alerta de Stock:** Notifica automáticamente a los usuarios que preguntaron por un producto "agotado" tan pronto como vuelve a estar disponible. **¡Conversión garantizada!**</li>
+            <li>**El Post-Venta Estratégica:** Enviar una encuesta breve y automatizada para calificar el servicio y, si es positiva, solicitar una reseña o una recomendación inmediata.</li>
+          </ol>
+          <p class="mt-4">Nuestros flujos garantizan la entrega de información clave, mueven la aguja de la conversión y liberan a tu equipo comercial, permitiendo que la caja registradora trabaje 24/7.</p>
+        `
+      },
+      diagnosis: {
+        title: "El Diagnóstico de 60 Segundos: ¿Por qué funciona?",
+        meta: "Producto | 1 de Octubre, 2025 | 3 min lectura",
+        relatedPackage: 'impulso', // Punto de partida / producto base -> Impulso
+        content: `
+          <p>La parálisis por análisis es el peor enemigo del crecimiento. Nuestro Mini Diagnóstico no es magia, es arquitectura de inteligencia.</p>
+          <h5>La Arquitectura de Precisión</h5>
+          <p>Al forzar la elección entre Tráfico, Conversión o Fidelización, el usuario se ve obligado a nombrar su dolor más grande. Esta data, combinada con la capacidad de análisis rápido de Gemini, nos permite clasificar el caso en segundos.</p>
+          <p>La IA no solo genera el texto, sino que mapea la necesidad a la solución más efectiva de nuestro portafolio de servicios (Impulso, Crecimiento, Dominio), eliminando el proceso de venta largo e ineficiente que hace que los clientes huyan.</p>
+          <p class="mt-4">El objetivo es simple: darte el camino, no el mapa completo. La claridad es el primer paso hacia la ejecución implacable, y la IA es tu brújula.</p>
+        `
+      },
+      growth: {
+        title: "Rompiendo el Bloqueo: De Tráfico a Dominio de Mercado",
+        meta: "Crecimiento | 25 de Septiembre, 2025 | 6 min lectura",
+        relatedPackage: 'crecimiento', // Escalado y Full Stack -> Crecimiento
+        content: `<p>El crecimiento lineal está muerto. El crecimiento exponencial requiere una visión de Full Stack Marketing. La metodología Trinity se basa en cuatro pilares: **Atracción (Tráfico), Nutrición (Conversión), Conversión (Venta) y Retención (Fidelización).**</p><p class="mt-2">Desglosamos cómo se utilizan los datos en cada fase para asegurar que cada dólar gastado tenga el mayor retorno posible. Desde la optimización del *copy* de los anuncios hasta el diseño de la experiencia post-compra, todo es un experimento medible y escalable.</p><p class="mt-2">Dominar un mercado no se trata de ser el más ruidoso, sino el más estratégico. Usa la IA para predecir y la ejecución para conquistar, no al revés.</p>`
+      },
+      retention: {
+        title: "Metadata vs. Magia: La Fórmula de la Fidelización",
+        meta: "Branding | 15 de Septiembre, 2025 | 4 min lectura",
+        relatedPackage: 'dominio', // Fidelización y Data -> Dominio
+        content: `<p>La magia de una marca ocurre cuando el cliente se siente especial. Pero la 'magia' real está impulsada por la **metadata**: datos demográficos, comportamiento de compra y patrones de uso.</p><p class="mt-2">Trinity utiliza esta metadata para crear 'momentos mágicos' a escala. Por ejemplo, si un cliente compra cada 30 días, la automatización se activa el día 28 con un incentivo personalizado, no genérico. Es data predictiva aplicada al afecto, es decir, ¡fidelización programada!</p><p class="mt-2">La retención no es un departamento, es una filosofía de negocio impulsada por la precisión de los datos, y es la forma más barata de crecer.</p>`
+      }
+    };
+
+
+    // --- Utility Function for Client-Side Routing ---
+    const views = {
+      '/': 'home',
+      '/packs': 'packs',
+      '/blog': 'blog'
+    };
+
+    function handleRoute(path) {
+      const viewName = views[path] || views['/']; // Default to home view
+      const viewElements = document.querySelectorAll('[data-view]');
+      const navButtons = document.querySelectorAll('[data-link]');
+
+      // Hide all views
+      viewElements.forEach(view => {
+        view.classList.add('hidden');
+      });
+
+      // Show the current view
+      const currentView = document.querySelector(`[data-view="${viewName}"]`);
+      if (currentView) {
+        currentView.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top on page change
+      }
+
+      // Update active navigation style
+      navButtons.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-link') === path) {
+          btn.classList.add('active');
         }
-
-        function closeMessageBox() {
-            document.getElementById('messageOverlay').style.display = 'none';
+      });
+      
+      // Update the URL in the address bar
+      if (window.location.pathname !== path) {
+          history.pushState({ path: path }, '', path);
+      }
+    }
+    
+    // Listen for back/forward browser buttons
+    window.addEventListener('popstate', () => {
+      handleRoute(window.location.pathname);
+    });
+    
+    // --- Utility Function for Exponential Backoff ---
+    async function fetchWithRetries(url, options, maxRetries = 3) {
+      for (let i = 0; i < maxRetries; i++) {
+        try {
+          const response = await fetch(url, options);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response;
+        } catch (error) {
+          if (i === maxRetries - 1) throw error;
+          const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+          await new Promise(resolve => setTimeout(resolve, delay));
         }
-        
-        // --- Main App Logic ---
-        document.getElementById('yr').textContent = new Date().getFullYear();
+      }
+    }
 
-        const vid = document.getElementById('trinityVideo');
-        const toggleSound = document.getElementById('toggleSound');
-        const playPause = document.getElementById('playPause');
-        const status = document.getElementById('videoStatus');
-        const openComosnyBtn = document.getElementById('open-comosny');
-        const comosnyPanel = document.getElementById('comosnyPanel');
-        const openDiagnosticoBtn = document.getElementById('open-diagnostico');
-        const diagnosticoPanel = document.getElementById('diagnosticoPanel');
-        const diagnosticoContainer = document.getElementById('diagnosticoContainer');
-        
-        // URL de ejemplo para el checkout externo (se usa en los paquetes)
-        const SYSTEME_FORM_URL = "https://mock-systeme-funnel.com/checkout-trinity"; 
-        
-        // WEBHOOK DE N8N PARA EL DIAGNÓSTICO
-        const WEBHOOK_URL = 'https://quantumcomosny.app.n8n.cloud/webhook/QuantumCore';
-        
-        // Definición de las URLs de destino para cada paquete (usadas en la pantalla de Gracias)
-        const PURCHASE_LINKS = {
-            'Tráfico': "https://tulink.impulso.com",
-            'Conversiones': "https://tulink.crecimiento.com",
-            'Fidelización': "https://tulink.dominio.com"
+    // --- DOM ELEMENT REFERENCES (Grouping for robustness) ---
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    
+    // Diagnosis Elements
+    const openDiagBtn = document.getElementById('openDiagBtn');
+    const diagnosisModalContainer = document.getElementById('diagnosisModalContainer');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const diagForm = document.getElementById('diagForm');
+    const formView = document.getElementById('formView');
+    const resultView = document.getElementById('resultView');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultDesc = document.getElementById('resultDesc');
+    const resultPackBtn = document.getElementById('resultPackBtn');
+    const resultChatBtn = document.getElementById('resultChatBtn');
+    const paqueteInput = document.getElementById('paqueteInput');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    // Article Elements
+    const articleModalContainer = document.getElementById('articleModalContainer');
+    const closeArticleModalBtn = document.getElementById('closeArticleModalBtn');
+    const articleTitle = document.getElementById('articleTitle');
+    const articleMeta = document.getElementById('articleMeta');
+    const articleContent = document.getElementById('articleContent');
+    const articleCTABtn = document.getElementById('articleCTABtn');
+
+    // Video Elements
+    const video = document.getElementById('heroVideo');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const muteBtn = document.getElementById('muteBtn');
+
+
+    // --- Modal logic (Shared components) ---
+
+    function closeModal(){
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove('open');
+        modalBackdrop.setAttribute('aria-hidden','true');
+      }
+      // Hide both containers when closing the modal
+      if (diagnosisModalContainer) diagnosisModalContainer.classList.add('hidden');
+      if (articleModalContainer) articleModalContainer.classList.add('hidden');
+    }
+
+    // support keyboard Escape
+    document.addEventListener('keydown', (e)=> {
+      if (e.key === 'Escape') closeModal();
+    });
+    
+    // --- Diagnosis Modal Logic ---
+
+    function openDiagnosisModal() {
+      // Hide article, show diagnosis
+      if (articleModalContainer) articleModalContainer.classList.add('hidden');
+      if (diagnosisModalContainer) diagnosisModalContainer.classList.remove('hidden');
+      if (modalBackdrop) {
+        modalBackdrop.classList.add('open');
+        modalBackdrop.setAttribute('aria-hidden','false');
+      }
+      if (formView) formView.classList.remove('hidden');
+      if (resultView) resultView.classList.add('hidden');
+      // focus first input
+      setTimeout(()=> {
+          const firstInput = document.querySelector('#diagForm input[name="nombre"]');
+          if(firstInput) firstInput.focus();
+      },120);
+    }
+
+    // open modal from packages with preselection
+    function openModalWithPackage(pkg){
+      if (paqueteInput) paqueteInput.value = pkg;
+      openDiagnosisModal();
+    }
+    window.openModalWithPackage = openModalWithPackage; // expose to inline onclick handlers
+
+    // --- Article Modal Logic ---
+
+    function openArticleModal(articleId) {
+      const article = articles[articleId];
+      if (!article) return;
+
+      // 1. Hide diagnosis, show article
+      if (diagnosisModalContainer) diagnosisModalContainer.classList.add('hidden');
+      if (articleModalContainer) articleModalContainer.classList.remove('hidden');
+      
+      // 2. Load content
+      if (articleTitle) articleTitle.textContent = article.title;
+      if (articleMeta) articleMeta.textContent = article.meta;
+      if (articleContent) {
+          articleContent.innerHTML = article.content;
+          articleContent.scrollTop = 0; // Scroll content to top
+      }
+      
+      // 3. Set CTA based on relatedPackage
+      const relatedPkgId = article.relatedPackage || 'impulso';
+      const pkg = packageDetails[relatedPkgId];
+
+      if (articleCTABtn) {
+        articleCTABtn.textContent = pkg.title;
+        articleCTABtn.onclick = () => {
+            closeModal();
+            handleRoute('/packs'); // Navigate to the packs page
         };
+      }
 
-        // --- Video Controls ---
-        // Play/pause video
-        playPause.addEventListener('click', () => {
-            if (vid.paused) { 
-                vid.play(); 
-                playPause.textContent='⏸ Pausar'; 
-            }
-            else { 
-                vid.pause(); 
-                playPause.textContent='▶ Reproducir'; 
-            }
-            updateStatus();
-        });
 
-        // Toggle sound (needs user interaction to activate audio)
-        toggleSound.addEventListener('click', () => {
-            if (vid.muted) {
-                vid.muted = false;
-                vid.play().catch(()=>{ /* ignore */ }); // Attempt to play if paused by browser
-                toggleSound.textContent = '🔊 Silenciar';
-            } else {
-                vid.muted = true;
-                toggleSound.textContent = '▶️ Activar sonido';
-            }
-            updateStatus();
-        });
+      // 4. Open modal
+      if (modalBackdrop) {
+        modalBackdrop.classList.add('open');
+        modalBackdrop.setAttribute('aria-hidden','false');
+      }
+    }
+    window.openArticleModal = openArticleModal; // expose to inline onclick handlers
 
-        function updateStatus(){
-            const s = (vid.paused ? 'pausado' : 'reproduciendo') + ' • audio: ' + (vid.muted ? 'silenciado' : 'activo');
-            status.textContent = 'Video: ' + s;
+
+    // --- Form submit: Call Gemini API for diagnosis and send data to webhook ---
+    function handleSubmit(e) {
+      e.preventDefault();
+      // Only proceed if diagForm exists
+      if (!diagForm) return;
+
+      const fd = new FormData(diagForm);
+      const data = {};
+      for (const [k,v] of fd.entries()) data[k] = v;
+      
+      const { nombre, email, bloqueo } = data;
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Ver mi ruta...';
+
+      // 1. Show processing state
+      if (submitBtn) {
+        submitBtn.innerHTML = '<span class="spinner">🌀</span> Procesando...';
+        submitBtn.disabled = true;
+      }
+
+      // 2. Call Gemini API
+      (async () => {
+        try {
+          const systemPrompt = `Eres Trinity, un experto estratega de marketing y autoconocimiento. Tu tarea es analizar el bloqueo de negocio de un usuario y ofrecer un diagnóstico estratégico en un solo párrafo (máximo 5 oraciones), conciso y motivador. El diagnóstico debe ser profesional y persuasivo, enfocado en resolver el bloqueo. 
+                                El diagnóstico debe concluir con una recomendación CLARA de uno de estos tres paquetes: 'Impulso' (para visibilidad/tráfico), 'Crecimiento' (para conversión/automatización), o 'Dominio' (para estrategia integral/fidelización). 
+                                Muestra tu análisis y luego, al final del párrafo, incluye el paquete recomendado entre corchetes, como en este ejemplo: '...Tu mejor ruta para activar la permanencia es el [Dominio].'`;
+          
+          const userQuery = `Mi nombre es ${nombre}, mi correo es ${email}, y mi mayor bloqueo actual es: "${bloqueo}". Dame mi diagnóstico y recomendación de ruta para crecer.`;
+          
+          const payload = {
+              contents: [{ parts: [{ text: userQuery }] }],
+              tools: [{ "google_search": {} }],
+              systemInstruction: {
+                  parts: [{ text: systemPrompt }]
+              },
+          };
+
+          const response = await fetchWithRetries(API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+          });
+
+          const result = await response.json();
+          const generatedText = result.candidates?.[0]?.content?.parts?.[0]?.text || 
+                                "Disculpa, no pudimos generar tu diagnóstico. Por favor, contacta a nuestro equipo.";
+
+          // 3. Extract recommended package using regex
+          const match = generatedText.match(/\[(Impulso|Crecimiento|Dominio)\]/i);
+          const recommendedPackage = match ? match[1].toLowerCase() : 'impulso';
+          
+          // Prepare title and clean description
+          const description = generatedText.replace(/\[(Impulso|Crecimiento|Dominio)\]/i, '').trim();
+          const packInfo = packageDetails[recommendedPackage] || packageDetails['impulso'];
+
+          // 4. Update Result View
+          if (resultTitle) resultTitle.textContent = packInfo.title;
+          if (resultDesc) resultDesc.textContent = description;
+          
+          if (resultPackBtn) {
+            // The resultPackBtn should navigate to the packs page, not open a modal
+            resultPackBtn.href = `javascript:void(0);`; 
+            resultPackBtn.onclick = () => {
+                 closeModal();
+                 handleRoute('/packs');
+            };
+            resultPackBtn.classList.remove('hidden');
+          }
+
+
+          // 5. Update Chat Link
+          const packLabel = recommendedPackage.charAt(0).toUpperCase() + recommendedPackage.slice(1);
+          if (resultChatBtn) {
+            resultChatBtn.href = `https://wa.me/573001234567?text=${encodeURIComponent(`Hola, mi nombre es ${nombre} y he completado mi diagnóstico. Me interesa discutir el paquete ${packLabel}.`)}`;
+            resultChatBtn.classList.remove('hidden');
+          }
+
+          if (formView) formView.classList.add('hidden');
+          if (resultView) resultView.classList.remove('hidden');
+
+        } catch (err) {
+          console.error('Error al obtener el diagnóstico de Gemini:', err);
+          if (resultTitle) resultTitle.textContent = '❌ Error en el Diagnóstico IA';
+          if (resultDesc) resultDesc.textContent = 'Tuvimos un problema con la conexión de la IA. Por favor, inténtalo de nuevo o contacta a nuestro equipo de estrategas directamente.';
+          if (resultPackBtn) resultPackBtn.classList.add('hidden');
+          if (resultChatBtn) resultChatBtn.classList.remove('hidden');
+          if (formView) formView.classList.add('hidden');
+          if (resultView) resultView.classList.remove('hidden');
+        } finally {
+          // 6. Restore submit button
+          if (submitBtn) {
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+          }
+          
+          // 7. Fire and forget: Send data to N8N webhook (non-critical)
+          try {
+            await fetch(N8N_WEBHOOK, {
+              method: 'POST',
+              headers: {'Content-Type':'application/json'},
+              body: JSON.stringify(data),
+            });
+          } catch (err) {
+            console.warn('Error enviando a n8n (no crítico):', err);
+          }
         }
+      })();
+    }
 
-        // Auto-play attempt muted first on load
-        window.addEventListener('load', ()=> {
-            vid.play().catch(()=>{ /* ignore autoplay block */ });
-            updateStatus();
+    // --- Video controls (kept original logic)
+    let isPlaying = true;
+    let isMuted = true;
+
+    // --- Initialization function to run when DOM is ready ---
+    function initialize() {
+        // --- Navigation Init ---
+        document.querySelectorAll('[data-link]').forEach(element => {
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                const path = element.getAttribute('data-link');
+                handleRoute(path);
+            });
         });
-
-        // --- COMOSNY Panel Functions ---
-        // COMOSNY panel open/close
-        openComosnyBtn.addEventListener('click', ()=> {
-            comosnyPanel.style.display = 'grid'; // Use grid to center content
-        });
-        function closeComosny(){ 
-            comosnyPanel.style.display = 'none'; 
+        handleRoute(window.location.pathname);
+        
+        // --- Video Init ---
+        if (video) {
+            video.play().catch(error => {
+                console.warn("Autoplay was prevented, user intervention required.", error);
+            });
         }
-
-        // Open Checkout / Form with prefilled product param (Usado en el panel COMOSNY)
-        function openCheckout(packageName){
-            // Appends query params to pass selected package: ?package=PackageName
-            const url = new URL(SYSTEME_FORM_URL);
-            url.searchParams.set('package', packageName.replace(/\s/g, '+'));
-            window.open(url.toString(), '_blank');
-        }
-
-        // --- DIAGNÓSTICO Modal Logic (Nuevo) ---
-
-        // Configuración estática del diagnóstico (basada en el JSON proporcionado)
-        const DIAGNOSTICO_CONFIG = {
-            pages: {
-                optin: {
-                    headline: "🚀 Mini Diagnóstico Express",
-                    subheadline: "Descubre en segundos dónde está tu cuello de botella y recibe tu plan recomendado",
-                    fields: [
-                        {name: "nombre", label: "Nombre", type: "text", required: true},
-                        {name: "email", label: "Email", type: "email", required: true},
-                        {
-                            name: "bloqueo", 
-                            label: "¿Dónde sientes tu mayor bloqueo?",
-                            type: "radio",
-                            options: [
-                                {label: "🌐 Tráfico — Quiero más visitantes", value: "trafico"},
-                                {label: "📈 Conversiones — Mis leads no compran", value: "conversiones"},
-                                {label: "🤝 Fidelización — No logro retener clientes", value: "fidelizacion"}
-                            ],
-                            required: true
-                        }
-                    ],
-                    buttonLabel: "Obtener diagnóstico express",
-                },
-                thankYou: {
-                    trafico: {
-                        headline: "🌐 Tu reto principal es el TRÁFICO",
-                        subheadline: "Tu marca necesita visibilidad inmediata. El paquete <b>Impulso</b> es tu mejor aliado.",
-                        buttonLabel: "Ver Paquete Impulso 🚀",
-                        link: PURCHASE_LINKS.Tráfico
-                    },
-                    conversiones: {
-                        headline: "📈 Tu reto principal son las CONVERSIONES",
-                        subheadline: "Tu embudo pierde fuerza en el cierre. El paquete <b>Crecimiento</b> está diseñado para ti.",
-                        buttonLabel: "Ver Paquete Crecimiento 📈",
-                        link: PURCHASE_LINKS.Conversiones
-                    },
-                    fidelizacion: {
-                        headline: "🤝 Tu reto principal es la FIDELIZACIÓN",
-                        subheadline: "Tienes clientes, pero no permanecen. El paquete <b>Dominio</b> es la solución integral.",
-                        buttonLabel: "Ver Paquete Dominio 🏆",
-                        link: PURCHASE_LINKS.Fidelización
-                    }
-                }
-            }
-        };
-
-        // Abre el modal y muestra el formulario de optin
-        openDiagnosticoBtn.addEventListener('click', () => {
-            diagnosticoPanel.style.display = 'grid';
-            renderOptinForm();
-        });
-
-        function openDiagnostico() {
-             diagnosticoPanel.style.display = 'grid';
-             renderOptinForm();
-        }
-
-        function closeDiagnostico(){
-            diagnosticoPanel.style.display = 'none';
-        }
-
-        // Renderiza la vista inicial del formulario (Captura Diagnóstico)
-        function renderOptinForm() {
-            const config = DIAGNOSTICO_CONFIG.pages.optin;
-            
-            let formHTML = `
-                <h2 style="font-size: 28px; margin-bottom: 5px;">${config.headline}</h2>
-                <p style="opacity: 0.8; margin-bottom: 25px;">${config.subheadline}</p>
-                <form id="diagnosticoForm">
-            `;
-
-            config.fields.forEach(field => {
-                formHTML += `<div class="diag-form-group">`;
-                formHTML += `<label for="${field.name}">${field.label}</label>`;
-
-                if (field.type === 'radio') {
-                    formHTML += `<div class="diag-radio-options">`;
-                    field.options.forEach(option => {
-                        formHTML += `
-                            <label>
-                                <input type="radio" name="${field.name}" value="${option.value}" required>
-                                ${option.label}
-                            </label>
-                        `;
-                    });
-                    formHTML += `</div>`;
-                } else {
-                    formHTML += `<input type="${field.type}" id="${field.name}" name="${field.name}" required>`;
-                }
-
-                formHTML += `</div>`;
+        if (playPauseBtn && muteBtn && video) {
+            playPauseBtn.addEventListener('click', () => {
+              if (video.paused) {
+                video.play();
+                isPlaying = true;
+                playPauseBtn.textContent = 'Pause';
+              } else {
+                video.pause();
+                isPlaying = false;
+                playPauseBtn.textContent = 'Play';
+              }
             });
 
-            formHTML += `
-                    <button type="submit" class="diag-button">${config.buttonLabel}</button>
-                </form>
-            `;
-            
-            diagnosticoContainer.innerHTML = formHTML;
-
-            // Adjunta el event listener al formulario recién creado
-            document.getElementById('diagnosticoForm').addEventListener('submit', handleFormSubmit);
+            muteBtn.addEventListener('click', () => {
+              video.muted = !video.muted;
+              isMuted = video.muted;
+              muteBtn.textContent = isMuted ? 'Unmute' : 'Mute';
+            });
         }
         
-        // Function for exponential backoff delay
-        function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
+        // --- Modal Listener Init ---
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if (closeArticleModalBtn) closeArticleModalBtn.addEventListener('click', closeModal);
+
+        if (modalBackdrop) {
+          modalBackdrop.addEventListener('click', (e)=> {
+            // Check if click target is the backdrop itself
+            if (e.target === modalBackdrop) closeModal(); 
+          });
         }
 
-        // Maneja el envío del formulario y llama al webhook de n8n
-        async function handleFormSubmit(event) {
-            event.preventDefault();
-            
-            const MAX_RETRIES = 3;
-
-            // 1. Recoger datos
-            const formData = new FormData(event.target);
-            const data = {};
-            formData.forEach((value, key) => data[key] = value);
-
-            const bloqueo = data.bloqueo; // trafico, conversiones, o fidelizacion
-            if (!bloqueo) {
-                showMessageBox("Error", "Por favor, selecciona tu principal bloqueo.");
-                return;
-            }
-            
-            // UX: Desactivar botón y mostrar estado de carga
-            const submitButton = event.target.querySelector('.diag-button');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Enviando...';
-            submitButton.disabled = true;
-
-            // 2. Intentar envío con reintentos (Exponential Backoff)
-            let success = false;
-            for (let i = 0; i < MAX_RETRIES; i++) {
-                try {
-                    const response = await fetch(WEBHOOK_URL, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    });
-
-                    if (response.ok) {
-                        success = true;
-                        break; // Éxito
-                    } else {
-                        console.error(`Attempt ${i + 1} failed with status: ${response.status}`);
-                    }
-                } catch (error) {
-                    console.error(`Attempt ${i + 1} failed with error:`, error);
-                }
-
-                if (i < MAX_RETRIES - 1) {
-                    const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s
-                    await sleep(delay);
-                }
-            }
-
-            // 3. Procesar resultado
-            // Restaurar estado del botón
-            submitButton.textContent = originalText;
-            submitButton.disabled = false;
-            
-            if (success) {
-                console.log("Datos enviados a n8n exitosamente:", data);
-                
-                let thankYouKey;
-                switch(bloqueo) {
-                    case 'trafico': thankYouKey = 'trafico'; break;
-                    case 'conversiones': thankYouKey = 'conversiones'; break;
-                    case 'fidelizacion': thankYouKey = 'fidelizacion'; break;
-                    default: showMessageBox("Error", "Error interno al determinar el plan."); return;
-                }
-
-                renderThankYouScreen(thankYouKey);
-            } else {
-                // Fallback si todos los reintentos fallan
-                showMessageBox(
-                    "Error de Conexión", 
-                    "No pudimos registrar tu diagnóstico. Por favor, revisa tu conexión e inténtalo de nuevo."
-                );
-            }
+        // --- Diagnosis Listener Init ---
+        if (openDiagBtn) {
+            openDiagBtn.addEventListener('click', () => {
+              if (paqueteInput) paqueteInput.value = 'general';
+              openDiagnosisModal();
+            });
         }
 
-        // Renderiza la pantalla de agradecimiento (Gracias X)
-        function renderThankYouScreen(key) {
-            const config = DIAGNOSTICO_CONFIG.pages.thankYou[key];
-            
-            const thankYouHTML = `
-                <div class="diag-thankyou">
-                    <h2 style="font-size: 28px;">${config.headline}</h2>
-                    <p style="opacity: 0.9; font-weight: 500; margin-bottom: 30px;">${config.subheadline}</p>
-                    <button 
-                        class="diag-button"
-                        onclick="window.open('${config.link}', '_blank'); closeDiagnostico();"
-                        style="width: auto; padding: 12px 30px;"
-                    >
-                        ${config.buttonLabel}
-                    </button>
-                    <p style="margin-top: 20px; font-size: 13px; opacity: 0.7;">Serás redirigido a la página de checkout.</p>
-                </div>
-            `;
-            
-            diagnosticoContainer.innerHTML = thankYouHTML;
+        if (resetBtn) {
+          resetBtn.addEventListener('click', ()=> {
+            if (diagForm) diagForm.reset();
+            if (paqueteInput) paqueteInput.value = 'general';
+            if (formView) formView.classList.remove('hidden');
+            if (resultView) resultView.classList.add('hidden');
+          });
         }
 
+        if (diagForm) {
+            diagForm.addEventListener('submit', handleSubmit);
+        }
+    }
 
-    </script>
+    window.onload = initialize;
+  </script>
 </body>
 </html>
